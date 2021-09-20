@@ -2,7 +2,7 @@
 
 ## Setup
 
-New Member: Rohan
+Member: Rohan
 
 To use this as boilerplate, you'll need to take the following steps:
 
