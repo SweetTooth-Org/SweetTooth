@@ -1,5 +1,8 @@
 # FS-App-Template
 
+Team Members:
+Franklin Yin
+
 ## Setup
 
 To use this as boilerplate, you'll need to take the following steps:
