@@ -1,5 +1,7 @@
 # FS-App-Template
 
+Francis Yu
+
 ## Setup
 
 Member: Rohan
