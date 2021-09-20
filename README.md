@@ -1,6 +1,7 @@
 # FS-App-Template
 
-Francis Yu
+Team Members:
+Franklin Yin
 
 ## Setup
 
