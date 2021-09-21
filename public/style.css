@@ -19,3 +19,31 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+h2 {
+  text-align: center;
+}
+
+/*********
+IDs
+*********/
+
+#all-candies-view {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+#candy-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  margin: 3%;
+}
+
+#all-candy-img {
+  max-width: 200px;
+  max-height: 200px;
+}
