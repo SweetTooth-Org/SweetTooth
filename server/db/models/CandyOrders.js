@@ -2,10 +2,10 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 const axios = require('axios');
 
-const CartCandy = db.define('cartcandy', {
+const CandyOrders = db.define('candyorders', {
   quantity: {
     type: Sequelize.INTEGER,
   },
 });
 
-module.exports = CartCandy;
+module.exports = CandyOrders;
