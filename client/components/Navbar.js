@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import Cart from './Cart'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
@@ -14,6 +15,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
+          <Cart />
         </div>
       ) : (
         <div>
