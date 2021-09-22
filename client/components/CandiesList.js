@@ -18,13 +18,13 @@ class CandiesList extends React.Component {
         <div id="all-candies-view">
           {candies.map((candy) => {
             return (
-              <Link to={`/candies/${candy.id}`} key={candy.id}>
-                <div id="candy-item">
-                  <h4>{candy.name}</h4>
-                  <img id="all-candy-img" src={candy.imageUrl} />
-                  <h4>{candy.price}</h4>
-                  <button type="button">Add To Cart</button>
-                </div>
+            <Link to={`/candies/${candy.id}`}>
+              <div id="candy-item" key={candy.id}>
+                <h4>{candy.name}</h4>
+                <img id="all-candy-img" src={candy.imageUrl} />
+                <h4>{candy.price}</h4>
+                <button type="button" onClick={() => this.props.createCart({candy, userId})}>Add To Cart</button>
+              </div>
               </Link>
             )
           })}

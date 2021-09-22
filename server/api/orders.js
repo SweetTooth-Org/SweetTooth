@@ -16,8 +16,8 @@ const router = require('express').Router()
 // })
 
 
-//POST /api/orders/:userId
-router.post('/:userId', async (req, res, next) => {
+//POST /api/orders/
+router.post('/', async (req, res, next) => {
   try {
     const order = await Order.create({
       userId: req.params.userId,
