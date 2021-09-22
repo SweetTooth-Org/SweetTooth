@@ -24,9 +24,9 @@ export const _createCart = (cart) => ({
 //   }
 // }
 
-export const createCart = (order) => async (dispatch) => {
+export const createCart = (candyId) => async (dispatch) => {
   try {
-    const { data } = await axios.post(`/api/orders/${order.userId}`, order);
+    const { data } = await axios.post(`/api/orders/${order.userId}`, candyId);
     dispatch(_createCart(data));
   } catch (error) {
     console.log(error);
@@ -39,7 +39,7 @@ const initialState = null;
 export default function (cart = initialState, action) {
   switch (action.type) {
     case CREATE_CART:
-      return {};
+      return action.cart;
     default:
       return cart;
   }

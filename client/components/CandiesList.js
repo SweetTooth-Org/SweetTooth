@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchCandies } from '../store/candies';
+import { createCart } from '../store/cart'
 
 class CandiesList extends React.Component {
   componentDidMount() {
@@ -19,7 +20,7 @@ class CandiesList extends React.Component {
                 <h4>{candy.name}</h4>
                 <img id="all-candy-img" src={candy.imageUrl} />
                 <h4>{candy.price}</h4>
-                <button type="button" onClick={() => this.props.addCandy(candy.id)}>Add To Cart</button>
+                <button type="button" onClick={() => this.props.createCart({candy, user})}>Add To Cart</button>
               </div>
             );
           })}
@@ -32,12 +33,14 @@ class CandiesList extends React.Component {
 const mapState = (state) => {
   return {
     candies: state.candies,
+    user: state.auth.user
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     loadCandies: () => dispatch(fetchCandies()),
+    createCart: (candyId) => dispatch(createCart(candyId))
   };
 };
 
