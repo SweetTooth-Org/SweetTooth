@@ -5,6 +5,7 @@ import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import { me } from './store';
 import SingleCandy from './components/SingleCandy';
+import Checkout from './components/Checkout';
 
 /**
  * COMPONENT
@@ -22,6 +23,7 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/candies/:candyId" component={SingleCandy} />
+            <Route path="/checkout" component={Checkout} />
             <Route path="/home" component={Home} />
             <Redirect to="/home" />
           </Switch>
@@ -30,6 +32,7 @@ class Routes extends Component {
             <Route path="/" exact component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/checkout" component={Checkout} />
           </Switch>
         )}
       </div>
