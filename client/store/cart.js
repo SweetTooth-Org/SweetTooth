@@ -24,9 +24,9 @@ export const _createCart = (cart) => ({
 //   }
 // }
 
-export const createCart = (candyId) => async (dispatch) => {
+export const createCart = (order) => async (dispatch) => {
   try {
-    const { data } = await axios.post(`/api/orders/${order.userId}`, candyId);
+    const { data } = await axios.post('/api/orders/', order);
     dispatch(_createCart(data));
   } catch (error) {
     console.log(error);

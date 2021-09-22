@@ -20,7 +20,8 @@ const router = require('express').Router()
 router.post('/:userId', async (req, res, next) => {
   try {
     const order = await Order.create({
-      userId: req.params.userId
+      userId: req.params.userId,
+      candyId:
     })
     res.status(201).send(order)
   } catch (error) {

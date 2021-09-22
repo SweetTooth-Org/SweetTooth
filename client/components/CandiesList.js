@@ -9,6 +9,7 @@ class CandiesList extends React.Component {
   }
   render() {
     const candies = this.props.candies;
+    const userId = this.props.userId
     console.log(candies);
     return (
       <React.Fragment>
@@ -20,7 +21,7 @@ class CandiesList extends React.Component {
                 <h4>{candy.name}</h4>
                 <img id="all-candy-img" src={candy.imageUrl} />
                 <h4>{candy.price}</h4>
-                <button type="button" onClick={() => this.props.createCart({candy, user})}>Add To Cart</button>
+                <button type="button" onClick={() => this.props.createCart({candy, userId})}>Add To Cart</button>
               </div>
             );
           })}
@@ -33,7 +34,7 @@ class CandiesList extends React.Component {
 const mapState = (state) => {
   return {
     candies: state.candies,
-    user: state.auth.user
+    userId: state.auth.id
   };
 };
 
