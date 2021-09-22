@@ -4,6 +4,7 @@ import { fetchCandies } from '../store/candies';
 import { createCart } from '../store/cart'
 import { Link } from 'react-router-dom';
 import { createCandyOrder } from '../store/candyOrders'
+import { updateCandyQuantity } from '../store/candyOrders'
 
 class CandiesList extends React.Component {
 
@@ -18,7 +19,26 @@ class CandiesList extends React.Component {
 
   async handleCreateCart(candy, userId) {
     if (this.props.cart.id){
-      //
+      //check if the candy exists in candyOrders
+      let preexistingCandyOrder = this.props.candyOrders.reduce((accum, candyOrder) => {
+        if (candyOrder.candyId === candy.id) {
+          accum = {...candyOrder}
+          return accum
+        }
+        return accum
+      }, {})
+      if (Object.keys(preexistingCandyOrder).length > 0) {
+        //increment quantity of existing candyOrder
+        await this.props.updateCandyQuantity({...preexistingCandyOrder, quantity: preexistingCandyOrder.quantity+1})
+      } else {
+        //create new candyOrder
+        await this.props.createCandyOrder({
+          orderId: this.props.cart.id,
+          candyId: candy.id,
+          quantity: 1
+        })
+      }
+
     } else {
       await this.props.createCart({userId})
       await this.props.createCandyOrder({
@@ -32,7 +52,6 @@ class CandiesList extends React.Component {
   render() {
     const candies = this.props.candies;
     const userId = this.props.userId
-    console.log(candies);
     return (
       <React.Fragment>
         <h2>Shop All Candies</h2>
@@ -68,7 +87,8 @@ const mapDispatch = (dispatch) => {
   return {
     loadCandies: () => dispatch(fetchCandies()),
     createCart: (userId) => dispatch(createCart(userId)),
-    createCandyOrder: (candyOrder) => dispatch(createCandyOrder(candyOrder))
+    createCandyOrder: (candyOrder) => dispatch(createCandyOrder(candyOrder)),
+    updateCandyQuantity: (candyOrder) => dispatch(updateCandyQuantity(candyOrder))
   };
 };
 
