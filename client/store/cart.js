@@ -35,11 +35,11 @@ export const createCart = (order) => async (dispatch) => {
 
 //REDUCER
 
-const initialState = null;
+const initialState = {};
 export default function (cart = initialState, action) {
   switch (action.type) {
     case CREATE_CART:
-      return action.cart;
+      return {...action.cart};
     default:
       return cart;
   }

@@ -3,11 +3,32 @@ import { connect } from 'react-redux';
 import { fetchCandies } from '../store/candies';
 import { createCart } from '../store/cart'
 import { Link } from 'react-router-dom';
+import { createCandyOrder } from '../store/candyOrders'
 
 class CandiesList extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.handleCreateCart = this.handleCreateCart.bind(this)
+  }
+
   componentDidMount() {
     this.props.loadCandies();
   }
+
+  async handleCreateCart(candy, userId) {
+    if (this.props.cart.id){
+      //
+    } else {
+      await this.props.createCart({userId})
+      await this.props.createCandyOrder({
+        orderId: this.props.cart.id,
+        candyId: candy.id,
+        quantity: 1
+      })
+    }
+  }
+
   render() {
     const candies = this.props.candies;
     const userId = this.props.userId
@@ -18,14 +39,14 @@ class CandiesList extends React.Component {
         <div id="all-candies-view">
           {candies.map((candy) => {
             return (
-            <Link to={`/candies/${candy.id}`}>
               <div id="candy-item" key={candy.id}>
+                <Link to={`/candies/${candy.id}`}>
                 <h4>{candy.name}</h4>
                 <img id="all-candy-img" src={candy.imageUrl} />
                 <h4>{candy.price}</h4>
-                <button type="button" onClick={() => this.props.createCart({candy, userId})}>Add To Cart</button>
+                </Link>
+                <button type="button" onClick={() => this.handleCreateCart(candy, userId)}>Add To Cart</button>
               </div>
-              </Link>
             )
           })}
         </div>
@@ -37,14 +58,17 @@ class CandiesList extends React.Component {
 const mapState = (state) => {
   return {
     candies: state.candies,
-    userId: state.auth.id
+    userId: state.auth.id,
+    cart: state.cart,
+    candyOrders: state.candyOrders
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     loadCandies: () => dispatch(fetchCandies()),
-    createCart: (candyId) => dispatch(createCart(candyId))
+    createCart: (userId) => dispatch(createCart(userId)),
+    createCandyOrder: (candyOrder) => dispatch(createCandyOrder(candyOrder))
   };
 };
 
