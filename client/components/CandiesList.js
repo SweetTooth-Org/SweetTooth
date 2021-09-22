@@ -19,7 +19,7 @@ class CandiesList extends React.Component {
                 <h4>{candy.name}</h4>
                 <img id="all-candy-img" src={candy.imageUrl} />
                 <h4>{candy.price}</h4>
-                <button type="button">Add To Cart</button>
+                <button type="button" onClick={() => this.props.addCandy(candy.id)}>Add To Cart</button>
               </div>
             );
           })}
