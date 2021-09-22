@@ -6,6 +6,9 @@ import Home from './components/Home';
 import { me } from './store';
 import SingleCandy from './components/SingleCandy';
 import Checkout from './components/Checkout';
+import Admin from './components/Admin';
+import AdminCandyForm from './components/AdminCandyForm';
+import AdminUserList from './components/AdminUserList';
 
 /**
  * COMPONENT
@@ -17,11 +20,15 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn } = this.props;
-
+    //I added a few routes that are part of the Admin View. Makes it easy to go back in history. Later we will have to protect these routes from non Admin users
     return (
       <div>
         {isLoggedIn ? (
           <Switch>
+            <Route path="/users" component={AdminUserList} />
+            <Route path="/addCandy" component={AdminCandyForm} />
+            <Route path="/edit/:candyId" component={AdminCandyForm} />
+            <Route path="/admin" component={Admin} />
             <Route path="/candies/:candyId" component={SingleCandy} />
             <Route path="/checkout" component={Checkout} />
             <Route path="/home" component={Home} />

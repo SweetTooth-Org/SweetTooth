@@ -19,6 +19,46 @@ export const fetchCandies = () => {
   };
 };
 
+export const deleteCandy = function (candyId) {
+  return async function (dispatch) {
+    try {
+      const updatedCandyList = await axios.delete('/api/candies/deleteCandy', {
+        data: { candyId },
+      });
+      dispatch(setCandies(updatedCandyList.data));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
+export const submitNewCandy = (newCandyObj) => {
+  return async function (dispatch) {
+    try {
+      const updatedCandyList = await axios.post(
+        '/api/candies/createCandy',
+        newCandyObj
+      );
+      dispatch(setCandies(updatedCandyList.data));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
+export const updateCandy = (candyId, candyInfo) => {
+  return async function (dispatch) {
+    try {
+      const updatedCandyList = await axios.put('/api/candies/updateCandy', {
+        candyId,
+        candyInfo,
+      });
+      dispatch(setCandies(updatedCandyList.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 // Reducer & Initial State
 const initialState = [];
 
