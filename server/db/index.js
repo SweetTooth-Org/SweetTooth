@@ -14,6 +14,12 @@ Order.belongsTo(User);
 Candy.belongsToMany(Order, { through: CandyOrders });
 Order.belongsToMany(Candy, { through: CandyOrders });
 
+Candy.hasMany(CandyOrders);
+CandyOrders.belongsTo(Candy);
+
+Order.hasMany(CandyOrders);
+CandyOrders.belongsTo(Order);
+
 module.exports = {
   db,
   models: {

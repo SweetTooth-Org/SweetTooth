@@ -28,6 +28,39 @@ h2 {
 IDs
 *********/
 
+#checkout-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#checkout-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  border: 2px solid #d8d8d8;
+  margin: 2%;
+  padding: 2%;
+}
+
+#quantity-slider {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#total-checkout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  margin: 5%;
+}
+
 #all-candies-view {
   display: flex;
   flex-direction: row;
@@ -48,6 +81,9 @@ IDs
   max-height: 200px;
 }
 
+/*********
+Classes
+*********/
 /*********
 Rohan-my CSS needs alot of work
 *********/
