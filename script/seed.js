@@ -1,4 +1,5 @@
 'use strict';
+const faker = require('faker');
 
 const {
   db,
@@ -24,6 +25,22 @@ const candyObjs = candiesData.map(function (candy) {
   };
 });
 
+//Generate random users using Faker.js
+//passwords are just the username+pw
+const genRandomUsers = function (num) {
+  const result = [];
+  for (let i = 0; i < num; i++) {
+    const nameOne = faker.name.firstName();
+    const nameTwo = faker.name.lastName();
+    result.push({
+      username: `${nameOne}${nameTwo}`,
+      password: `${nameOne}${nameTwo}pw`,
+    });
+  }
+  return result;
+};
+
+const randomUser = genRandomUsers(100);
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
@@ -37,6 +54,12 @@ async function seed() {
     User.create({ username: 'cody', password: '123' }),
     User.create({ username: 'murphy', password: '123' }),
   ]);
+
+  const randomUsers = await Promise.all(
+    randomUser.map(function (user) {
+      User.create(user);
+    })
+  );
 
   //Database seeding
   const candies = await Promise.all(

@@ -5,10 +5,19 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import auth from './auth';
 import candies from './candies';
 import singleCandy from './singleCandy';
-import cart from './cart'
+import cart from './cart';
 import candyOrders from './candyOrders';
+import users from './users';
 
-const reducer = combineReducers({ auth, candies, singleCandy, cart, candyOrders });
+const reducer = combineReducers({
+  auth,
+  candies,
+  singleCandy,
+  users,
+  cart,
+  candyOrders,
+});
+
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
