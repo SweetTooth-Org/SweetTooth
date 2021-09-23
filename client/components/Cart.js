@@ -11,10 +11,12 @@ class Cart extends Component {
 
   async componentDidMount() {
     await this.props.loadCart(this.props.auth.id);
-    await this.props.loadCandyOrders(this.props.cart.id);
+    if (this.props.cart.userId) {
+      await this.props.loadCandyOrders(this.props.cart.id);
+    }
   }
+
   render() {
-    console.log(this.props);
     return (
       <Link to={`/checkout`}>
         <span>Cart {`(${this.props.candyOrders.length})`}</span>
