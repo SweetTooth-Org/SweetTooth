@@ -29,7 +29,7 @@ class Checkout extends React.Component {
     const cart = this.props.cart
     const candyOrders = this.props.candyOrders
     await this.props.checkoutCart({...cart, isFulfilled: true})
-    await this.props.checkoutCandyOrders({})
+    await this.props.checkoutCandyOrders()
   }
 
   render() {
@@ -94,7 +94,7 @@ const mapDispatch = (dispatch) => {
     updateCandyQuantity: (candyOrder) =>
       dispatch(updateCandyQuantity(candyOrder)),
     checkoutCart: (cart) => dispatch(checkoutCart(cart)),
-    checkoutCandyOrders: (candyOrders) => (checkoutCandyOrders(candyOrders))
+    checkoutCandyOrders: () => (checkoutCandyOrders())
   };
 };
 
