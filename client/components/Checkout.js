@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateCandyQuantity } from '../store/candyOrders';
+import { checkoutCandyOrders } from '../store/candyOrders';
 import { Link } from 'react-router-dom'
 import { checkoutCart } from '../store/cart'
 
