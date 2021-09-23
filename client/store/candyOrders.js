@@ -3,6 +3,7 @@ import axios from 'axios';
 // Action Constants
 const SET_CANDY_ORDERS = 'SET_CANDY_ORDERS';
 const CREATE_CANDY_ORDER = 'CREATE_CANDY_ORDER';
+const DELETE_CANDY_ORDER = 'DELETE_CANDY_ORDER';
 const UPDATE_CANDY_QUANTITY = 'UPDATE_CANDY_QUANTIY';
 const CHECKOUT_CANDY_ORDERS = 'CHECKOUT_CANDY_ORDERS';
 
@@ -14,6 +15,11 @@ export const _setCandyOrders = (candyOrders) => ({
 
 export const _createCandyOrder = (candyOrder) => ({
   type: CREATE_CANDY_ORDER,
+  candyOrder,
+});
+
+export const _deleteCandyOrder = (candyOrder) => ({
+  type: DELETE_CANDY_ORDER,
   candyOrder,
 });
 
@@ -46,6 +52,17 @@ export const createCandyOrder = (candyOrder) => async (dispatch) => {
   }
 };
 
+export const deleteCandyOrder = (candyOrder) => async (dispatch) => {
+  try {
+    const { data } = await axios.delete(
+      `/api/candyOrders/${candyOrder.orderId}/${candyOrder.candyId}`
+    );
+    dispatch(_deleteCandyOrder(data));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const updateCandyQuantity = (candyOrder) => async (dispatch) => {
   try {
     const { data } = await axios.put('/api/candyOrders', candyOrder);
@@ -71,6 +88,10 @@ export default function (candyOrders = initialState, action) {
       return [...action.candyOrders];
     case CREATE_CANDY_ORDER:
       return [...candyOrders, action.candyOrder];
+    case DELETE_CANDY_ORDER:
+      return candyOrders.filter((candyOrder) => {
+        return candyOrder.candyId !== action.candyOrder.candyId;
+      });
     case UPDATE_CANDY_QUANTITY:
       return candyOrders.map((candyOrder) => {
         return candyOrder.candyId === action.candyOrder.candyId

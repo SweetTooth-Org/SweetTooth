@@ -15,8 +15,8 @@ class Cart extends Component {
       await this.props.loadCandyOrders(this.props.cart.id);
     }
   }
+
   render() {
-    console.log(this.props);
     return (
       <Link to={`/checkout`}>
         <span>Cart {`(${this.props.candyOrders.length})`}</span>

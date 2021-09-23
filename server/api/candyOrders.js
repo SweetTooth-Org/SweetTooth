@@ -20,10 +20,13 @@ router.get('/:id', async (req, res, next) => {
 // POST /api/candyOrders
 router.post('/', async (req, res, next) => {
   try {
+    const { candyId, orderId, quantity, price } = req.body;
+    console.log(price);
     const candyOrder = await CandyOrders.create({
-      candyId: req.body.candyId,
-      orderId: req.body.orderId,
-      quantity: req.body.quantity,
+      candyId,
+      orderId,
+      quantity,
+      price,
     });
     const [eagerLoadedCandyOrder] = await CandyOrders.findAll({
       include: [Candy],
@@ -56,6 +59,22 @@ router.put('/', async (req, res, next) => {
       },
     });
     res.json(eagerLoadedUpdatedCandy);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete('/:orderId/:candyId', async (req, res, next) => {
+  try {
+    console.log(req.params);
+    const { candyId, orderId } = req.params;
+    const [itemToDelete] = await CandyOrders.findAll({
+      where: {
+        candyId,
+        orderId,
+      },
+    });
+    res.status(200).json(await itemToDelete.destroy());
   } catch (error) {
     next(error);
   }

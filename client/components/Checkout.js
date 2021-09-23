@@ -2,14 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateCandyQuantity } from '../store/candyOrders';
 import { checkoutCandyOrders } from '../store/candyOrders';
-import { Link } from 'react-router-dom'
-import { checkoutCart } from '../store/cart'
+import { Link } from 'react-router-dom';
+import { checkoutCart } from '../store/cart';
+import { deleteCandyOrder } from '../store/candyOrders';
+import { setCart } from '../store/cart';
+import { setCandyOrders } from '../store/candyOrders';
 
 class Checkout extends React.Component {
   constructor(props) {
     super(props);
     this.handleChangeQty = this.handleChangeQty.bind(this);
-    this.handleCheckout = this.handleCheckout.bind(this)
+    this.handleCheckout = this.handleCheckout.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  async handleDelete(candyOrder) {
+    await this.props.deleteCandyOrder(candyOrder);
+    await this.props.loadCandyOrders(this.props.cart.id);
   }
 
   handleChangeQty(candyOrder, type) {
@@ -27,10 +36,9 @@ class Checkout extends React.Component {
   }
 
   async handleCheckout() {
-    const cart = this.props.cart
-    const candyOrders = this.props.candyOrders
-    await this.props.checkoutCart({...cart, isFulfilled: true})
-    await this.props.checkoutCandyOrders()
+    const cart = this.props.cart;
+    await this.props.checkoutCart({ ...cart, isFulfilled: true });
+    await this.props.checkoutCandyOrders();
   }
 
   render() {
@@ -43,7 +51,10 @@ class Checkout extends React.Component {
           {candyOrders.map((candyOrder) => {
             total += candyOrder.candy.price * candyOrder.quantity;
             return (
-              <div id="checkout-item" key={`${candyOrder.candyId} ${candyOrder.orderId}`}>
+              <div
+                id="checkout-item"
+                key={`${candyOrder.candyId} ${candyOrder.orderId}`}
+              >
                 <img id="all-candy-img" src={candyOrder.candy.imageUrl} />
                 <h4>{candyOrder.candy.name}</h4>
                 <div>
@@ -71,6 +82,13 @@ class Checkout extends React.Component {
                   Total Price: ${' '}
                   {((candyOrder.candy.price * candyOrder.quantity)/100).toFixed(2)}
                 </h4>
+                <button
+                  id="delete-item"
+                  type="button"
+                  onClick={() => this.handleDelete(candyOrder)}
+                >
+                  Remove
+                </button>
               </div>
             );
           })}
@@ -78,7 +96,9 @@ class Checkout extends React.Component {
         <div id="total-checkout">
           <h2>Total: {(total/100).toFixed(2)}</h2>
           <Link to="/confirmation">
-            <button type="button" onClick={() => this.handleCheckout()}>Checkout</button>
+            <button type="button" onClick={() => this.handleCheckout()}>
+              Checkout
+            </button>
           </Link>
         </div>
       </React.Fragment>
@@ -89,16 +109,18 @@ class Checkout extends React.Component {
 const mapState = (state) => {
   return {
     candyOrders: state.candyOrders,
-    cart: state.cart
+    cart: state.cart,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
+    loadCandyOrders: (id) => dispatch(setCandyOrders(id)),
     updateCandyQuantity: (candyOrder) =>
       dispatch(updateCandyQuantity(candyOrder)),
+    deleteCandyOrder: (candyOrder) => dispatch(deleteCandyOrder(candyOrder)),
     checkoutCart: (cart) => dispatch(checkoutCart(cart)),
-    checkoutCandyOrders: () => dispatch(checkoutCandyOrders())
+    checkoutCandyOrders: () => dispatch(checkoutCandyOrders()),
   };
 };
 

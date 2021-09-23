@@ -9,6 +9,9 @@ const CandyOrders = db.define('candyorders', {
       min: 0,
     },
   },
+  price: {
+    type: Sequelize.INTEGER,
+  },
 });
 
 module.exports = CandyOrders;
