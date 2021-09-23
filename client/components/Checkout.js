@@ -41,7 +41,7 @@ class Checkout extends React.Component {
         <div id="checkout-container">
           {candyOrders.map((candyOrder) => {
             return (
-              <div id="checkout-item" key={candyOrder.candy.id}>
+              <div id="checkout-item" key={`${candyOrder.candy.id} ${candyOrder.order.id}`}>
                 <img id="all-candy-img" src={candyOrder.candy.imageUrl} />
                 <h4>{candyOrder.candy.name}</h4>
                 <div>
