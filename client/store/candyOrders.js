@@ -39,7 +39,6 @@ export const updateCandyQuantity = (candyOrder) => async (dispatch) => {
 
 export const checkoutCandyOrders = () => async (dispatch) => {
   try {
-    console.log('entered thunk')
     dispatch(_checkoutCandyOrders())
   } catch (error) {
     console.log(error)
