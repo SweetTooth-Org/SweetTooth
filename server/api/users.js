@@ -5,7 +5,6 @@ const {
 module.exports = router;
 
 router.get('/', async (req, res, next) => {
-  console.log('returning...');
   try {
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though
