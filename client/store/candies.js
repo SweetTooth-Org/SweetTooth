@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { setSingleCandy } from './singleCandy';
+const TOKEN = 'token';
 
 // Action Types
 const SET_CANDIES = 'SET_CANDIES';
@@ -20,11 +22,17 @@ export const fetchCandies = () => {
 };
 
 export const deleteCandy = function (candyId) {
+  const token = window.localStorage.getItem(TOKEN);
+  let updatedCandyList;
   return async function (dispatch) {
     try {
-      const updatedCandyList = await axios.delete('/api/candies/deleteCandy', {
-        data: { candyId },
-      });
+      if (token) {
+        updatedCandyList = await axios.delete(`/api/candies/${candyId}`, {
+          headers: {
+            authorization: token,
+          },
+        });
+      }
       dispatch(setCandies(updatedCandyList.data));
     } catch (error) {
       console.log(error.message);
@@ -33,12 +41,17 @@ export const deleteCandy = function (candyId) {
 };
 
 export const submitNewCandy = (newCandyObj) => {
+  const token = window.localStorage.getItem(TOKEN);
+  let updatedCandyList;
   return async function (dispatch) {
     try {
-      const updatedCandyList = await axios.post(
-        '/api/candies/createCandy',
-        newCandyObj
-      );
+      if (token) {
+        updatedCandyList = await axios.post('/api/candies', newCandyObj, {
+          headers: {
+            authorization: token,
+          },
+        });
+      }
       dispatch(setCandies(updatedCandyList.data));
     } catch (error) {
       console.log(error.message);
@@ -47,13 +60,25 @@ export const submitNewCandy = (newCandyObj) => {
 };
 
 export const updateCandy = (candyId, candyInfo) => {
+  const token = window.localStorage.getItem(TOKEN);
   return async function (dispatch) {
     try {
-      const updatedCandyList = await axios.put('/api/candies/updateCandy', {
-        candyId,
-        candyInfo,
-      });
-      dispatch(setCandies(updatedCandyList.data));
+      if (token) {
+        const { data } = await axios.put(
+          '/api/candies/',
+          {
+            candyId,
+            candyInfo,
+          },
+          {
+            headers: {
+              authorization: token,
+            },
+          }
+        );
+        dispatch(setCandies(data.newCandyList));
+        dispatch(setSingleCandy(data.singleCandy));
+      }
     } catch (error) {
       console.log(error);
     }

@@ -102,6 +102,10 @@ Rohan-my CSS needs alot of work
   width: 500px;
 }
 
+.single-candy-name {
+  align-self: center;
+}
+
 .candy-description {
   width: 500px;
 }
@@ -117,92 +121,101 @@ Rohan-my CSS needs alot of work
   margin: 4px 2px;
   cursor: pointer;
 }
-
-.single-candy-name {
-  align-self: center;
+.admin-single-candy-card {
+  border: double;
 }
 
 .admin-candy-list {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  height: 1500px;
-  align-content: space-around;
+  height: 1700px;
 }
 
-.admin-candy {
-  height: 70px;
+.admin-user-list {
+  border: double;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 1700px;
+}
+
+.admin-user-div {
+  border: double;
+  height: 50px;
 }
 
 .admin-header {
+  border: double;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-content: center;
 }
 
+.btn {
+  border: none;
+  padding: 7px 17px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
 .admin-add-candy-btn {
   height: 30px;
   position: relative;
-  top: 25px;
+  top: 20px;
   left: 30px;
+  background-color: #e9d522;
+}
+
+.admin-users-btn {
+  border: none;
+  height: 30px;
+  position: relative;
+  top: 20px;
+  left: 15px;
+  background-color: #e9d522;
 }
 
 .admin-remove-btn {
-  border: none;
-  padding: 7px 17px;
-  text-align: center;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
   background-color: rgb(225, 155, 131);
+  font-size: 10px;
 }
 
 .admin-edit-btn {
-  border: none;
-  padding: 7px 17px;
-  text-align: center;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
   background-color: rgb(131, 225, 145);
+  font-size: 10px;
 }
 
-.add-form-container {
+.form-container {
+  display: flex;
+  justify-content: center;
+}
+
+.form-header {
+  display: flex;
+  justify-content: center;
+  width: 365px;
+  align-self: center;
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.form {
+  border: solid;
   height: 620px;
   width: 600px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-content: center;
   flex-wrap: wrap;
   gap: 10px;
   border: double;
+  justify-self: center;
 }
-
-.admin-user-list {
-  border: solid;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  height: 1500px;
-  /* align-content: space-around; */
-  /* height: 600px; */
-}
-
-.admin-user-div {
-  display: flex;
-  margin: 20px;
-}
-
-.admin-users-btn {
-  height: 30px;
-  position: relative;
-  top: 25px;
-  right: 30px;
-}
-
 textarea {
   display: flex;
   padding: 12px 20px;

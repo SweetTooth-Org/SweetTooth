@@ -9,14 +9,14 @@ const {
 //Generate Random Price
 function genRandomPrice(min, max) {
   const num = Math.random() * (max - min + 1) + min;
-  return num.toFixed(2);
+  return num.toFixed(0);
 }
 //Candies data
 const candiesData = require('../server/db/seedData');
 
 //Generate candy objs to use for seeding candy table
 const candyObjs = candiesData.map(function (candy) {
-  const price = genRandomPrice(1, 10);
+  const price = genRandomPrice(100, 1000);
   return {
     name: candy,
     price,
@@ -32,9 +32,11 @@ const genRandomUsers = function (num) {
   for (let i = 0; i < num; i++) {
     const nameOne = faker.name.firstName();
     const nameTwo = faker.name.lastName();
+    const email = `{${nameOne}${nameTwo}.gmail.com}`;
     result.push({
       username: `${nameOne}${nameTwo}`,
       password: `${nameOne}${nameTwo}pw`,
+      email,
     });
   }
   return result;
@@ -51,8 +53,12 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
+    User.create({ username: 'cody', password: '123', email: 'cody@gamil.com' }),
+    User.create({
+      username: 'murphy',
+      password: '123',
+      email: 'murphy@gamil.com',
+    }),
   ]);
 
   const randomUsers = await Promise.all(

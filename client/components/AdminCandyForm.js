@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { submitNewCandy } from '../store/candies';
 import { connect } from 'react-redux';
 import { updateCandy } from '../store/candies';
-import { fetchSingleCandy } from '../store/singleCandy';
+import { fetchSingleCandy, setSingleCandy } from '../store/singleCandy';
 import { Link } from 'react-router-dom';
 
 //This form can either be an 'add candy' form or an 'update' candy form, depending on if a candyId is present.
@@ -25,6 +25,14 @@ class AdminCandyForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  componentDidMount() {
+    if (Object.keys(this.props.match.params).length) {
+      this.props.loadSingleCandy(this.props.match.params.candyId);
+    } else {
+      this.props.setSingleCandy({});
+    }
+  }
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
@@ -42,61 +50,75 @@ class AdminCandyForm extends Component {
     this.setState(initState);
   }
   render() {
+    const singleCandy = this.props.singleCandy;
+    const name = Object.keys(singleCandy).length ? singleCandy.name : '';
+    const price = Object.keys(singleCandy).length ? singleCandy.price : '';
     let title;
     if (this.props.match.params.candyId) {
-      title = 'Update Candy';
+      title = 'Update';
     } else {
       title = 'Add a Candy';
     }
     return (
-      <div className="add-form-container">
-        <span>{title}</span>
-        <form onSubmit={this.handleSubmit}>
-          <div className="container-form-field">
-            <label htmlFor="name">Name</label>
-            <input
+      <div className="form-container">
+        <div className="form">
+          <header className="form-header">
+            <span>{`${title} ${name}`}</span>
+          </header>
+          <form onSubmit={this.handleSubmit}>
+            <label htmlFor="price">Name</label>
+            <textarea
               type="text"
               name="name"
               value={this.state.name}
               onChange={this.handleChange}
-              placeholder="Name"
-            ></input>
-          </div>
-          <div className="container-form-field">
-            <label htmlFor="price">Price</label>
-            <input
+              placeholder={`${name}(Required)`}
+              rows="1"
+              cols="40"
+            />
+            <label htmlFor="imageUrl">Price</label>
+            <textarea
               type="text"
               name="price"
               value={this.state.price}
               onChange={this.handleChange}
-            ></input>
-          </div>
-          <div className="container-form-field">
+              placeholder={`${price}(Required)`}
+              rows="1"
+              cols="40"
+            />
             <label htmlFor="imageUrl">ImageUrl</label>
-            <input
+            <textarea
               type="text"
               name="imageUrl"
               value={this.state.imageUrl}
               onChange={this.handleChange}
-            ></input>
-          </div>
-          <label htmlFor="description">Description</label>
-          <textarea
-            type="text"
-            name="description"
-            value={this.state.description}
-            onChange={this.handleChange}
-            placeholder="Not required..."
-            rows="12"
-            cols="40"
-          />
+              placeholder="Not required..."
+              rows="5"
+              cols="40"
+            />
+            <label htmlFor="description">Description</label>
+            <textarea
+              type="text"
+              name="description"
+              value={this.state.description}
+              onChange={this.handleChange}
+              placeholder="Not required..."
+              rows="9"
+              cols="40"
+            />
 
-          <button type="submit">Submit!</button>
-        </form>
+            <button type="submit">Submit!</button>
+          </form>
+        </div>
       </div>
     );
   }
 }
+const mapState = (state) => {
+  return {
+    singleCandy: state.singleCandy,
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
@@ -106,7 +128,13 @@ const mapDispatch = (dispatch) => {
     updateCandy: function (candyId, newCandyObj) {
       return dispatch(updateCandy(candyId, newCandyObj));
     },
+    loadSingleCandy: function (candyId) {
+      return dispatch(fetchSingleCandy(candyId));
+    },
+    setSingleCandy: function (candy) {
+      return dispatch(setSingleCandy(candy));
+    },
   };
 };
 
-export default connect(null, mapDispatch)(AdminCandyForm);
+export default connect(mapState, mapDispatch)(AdminCandyForm);

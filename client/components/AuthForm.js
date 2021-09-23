@@ -8,7 +8,6 @@ import CandiesList from './CandiesList';
  */
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
-
   return (
     <React.Fragment>
       <div>

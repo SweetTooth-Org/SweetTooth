@@ -77,10 +77,10 @@ class Checkout extends React.Component {
                     </button>
                   </div>
                 </div>
-                <h4>$ {candyOrder.candy.price}</h4>
+                <h4>$ {(candyOrder.candy.price/100).toFixed(2)}</h4>
                 <h4>
                   Total Price: ${' '}
-                  {(candyOrder.candy.price * candyOrder.quantity).toFixed(2)}
+                  {((candyOrder.candy.price * candyOrder.quantity)/100).toFixed(2)}
                 </h4>
                 <button
                   id="delete-item"
@@ -94,7 +94,7 @@ class Checkout extends React.Component {
           })}
         </div>
         <div id="total-checkout">
-          <h2>Total: {total.toFixed(2)}</h2>
+          <h2>Total: {(total/100).toFixed(2)}</h2>
           <Link to="/confirmation">
             <button type="button" onClick={() => this.handleCheckout()}>
               Checkout

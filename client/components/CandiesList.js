@@ -70,7 +70,7 @@ class CandiesList extends React.Component {
                 <Link to={`/candies/${candy.id}`}>
                   <h4>{candy.name}</h4>
                   <img id="all-candy-img" src={candy.imageUrl} />
-                  <h4>{candy.price}</h4>
+                  <h4>{(candy.price / 100).toFixed(2)}</h4>
                 </Link>
                 <button
                   type="button"
