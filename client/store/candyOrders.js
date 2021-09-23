@@ -33,7 +33,7 @@ export const setCandyOrders = (id) => async (dispatch) => {
     const { data } = await axios.get(`/api/candyOrders/${id}`);
     dispatch(_setCandyOrders(data));
   } catch (error) {
-    console(error);
+    console.log(error);
   }
 };
 
