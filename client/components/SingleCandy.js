@@ -71,7 +71,7 @@ export class SingleCandy extends Component {
                   printer took a galley of type and scrambled it to make a type
                   specimen book. It has survived not on
                 </p>
-                <h3>{`Price: $ ${singleCandy.price}`}</h3>
+                <h3>{`Price: $ ${(singleCandy.price/100).toFixed(2)}`}</h3>
                 <button className="add-cart-button" onClick={() => this.handleAddToCart(singleCandy, userId)}>Add To Cart</button>
               </div>
             </div>

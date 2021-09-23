@@ -9,14 +9,14 @@ const {
 //Generate Random Price
 function genRandomPrice(min, max) {
   const num = Math.random() * (max - min + 1) + min;
-  return num.toFixed(2);
+  return num.toFixed(0);
 }
 //Candies data
 const candiesData = require('../server/db/seedData');
 
 //Generate candy objs to use for seeding candy table
 const candyObjs = candiesData.map(function (candy) {
-  const price = genRandomPrice(1, 10);
+  const price = genRandomPrice(100, 1000);
   return {
     name: candy,
     price,
