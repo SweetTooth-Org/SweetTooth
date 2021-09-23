@@ -1,11 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateCandyQuantity } from '../store/candyOrders';
+import { checkoutCandyOrders } from '../store/candyOrders';
+import { Link } from 'react-router-dom'
+import { checkoutCart } from '../store/cart'
 
 class Checkout extends React.Component {
   constructor(props) {
     super(props);
     this.handleChangeQty = this.handleChangeQty.bind(this);
+    this.handleCheckout = this.handleCheckout.bind(this)
   }
 
   handleChangeQty(candyOrder, type) {
@@ -22,6 +26,13 @@ class Checkout extends React.Component {
     }
   }
 
+  async handleCheckout() {
+    const cart = this.props.cart
+    const candyOrders = this.props.candyOrders
+    await this.props.checkoutCart({...cart, isFulfilled: true})
+    await this.props.checkoutCandyOrders()
+  }
+
   render() {
     const candyOrders = this.props.candyOrders;
     let total = 0;
@@ -32,7 +43,7 @@ class Checkout extends React.Component {
           {candyOrders.map((candyOrder) => {
             total += candyOrder.candy.price * candyOrder.quantity;
             return (
-              <div id="checkout-item" key={candyOrder.candy.id}>
+              <div id="checkout-item" key={`${candyOrder.candyId} ${candyOrder.orderId}`}>
                 <img id="all-candy-img" src={candyOrder.candy.imageUrl} />
                 <h4>{candyOrder.candy.name}</h4>
                 <div>
@@ -66,7 +77,9 @@ class Checkout extends React.Component {
         </div>
         <div id="total-checkout">
           <h2>Total: {total.toFixed(2)}</h2>
-          <button type="button">Checkout</button>
+          <Link to="/confirmation">
+            <button type="button" onClick={() => this.handleCheckout()}>Checkout</button>
+          </Link>
         </div>
       </React.Fragment>
     );
@@ -76,6 +89,7 @@ class Checkout extends React.Component {
 const mapState = (state) => {
   return {
     candyOrders: state.candyOrders,
+    cart: state.cart
   };
 };
 
@@ -83,6 +97,8 @@ const mapDispatch = (dispatch) => {
   return {
     updateCandyQuantity: (candyOrder) =>
       dispatch(updateCandyQuantity(candyOrder)),
+    checkoutCart: (cart) => dispatch(checkoutCart(cart)),
+    checkoutCandyOrders: () => dispatch(checkoutCandyOrders())
   };
 };
 
