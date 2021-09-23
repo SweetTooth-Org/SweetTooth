@@ -1,22 +1,24 @@
-const Order = require("../db/models/Order");
-const router = require("express").Router();
+const Order = require('../db/models/Order');
+const CandyOrders = require('../db/models/CandyOrders');
+const router = require('express').Router();
 
-//GET /api/orders/:userId
-// router.get('/:userId', async (req, res, next) => {
-//   try {
-//     const order = await Order.findAll({
-//       where: {
-//         userId: req.params.userId,
-//         isFulfilled: false
-//       }
-//     })
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+// GET /api/orders/:id
+router.get('/:id', async (req, res, next) => {
+  try {
+    const [cart] = await Order.findAll({
+      where: {
+        userId: req.params.id,
+        isFulfilled: false,
+      },
+    });
+    res.status(200).json(cart);
+  } catch (error) {
+    next(error);
+  }
+});
 
 //POST /api/orders/
-router.post("/", async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     const order = await Order.create({
       userId: req.body.userId,
@@ -28,13 +30,13 @@ router.post("/", async (req, res, next) => {
 });
 
 //PUT /api/orders
-router.put("/", async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   try {
-    const order = await Order.findByPk(req.body.id)
-    res.json(await order.update(req.body))
+    const order = await Order.findByPk(req.body.id);
+    res.json(await order.update(req.body));
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
 module.exports = router;

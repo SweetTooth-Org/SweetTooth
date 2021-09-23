@@ -35,11 +35,13 @@ class Checkout extends React.Component {
 
   render() {
     const candyOrders = this.props.candyOrders;
+    let total = 0;
     return (
       <React.Fragment>
         <h2>Checkout</h2>
         <div id="checkout-container">
           {candyOrders.map((candyOrder) => {
+            total += candyOrder.candy.price * candyOrder.quantity;
             return (
               <div id="checkout-item" key={`${candyOrder.candyId} ${candyOrder.orderId}`}>
                 <img id="all-candy-img" src={candyOrder.candy.imageUrl} />
@@ -66,14 +68,15 @@ class Checkout extends React.Component {
                 </div>
                 <h4>$ {candyOrder.candy.price}</h4>
                 <h4>
-                  Total Price: $ {candyOrder.candy.price * candyOrder.quantity}
+                  Total Price: ${' '}
+                  {(candyOrder.candy.price * candyOrder.quantity).toFixed(2)}
                 </h4>
               </div>
             );
           })}
         </div>
         <div id="total-checkout">
-          <h3>Total: $$$</h3>
+          <h2>Total: {total.toFixed(2)}</h2>
           <Link to="/confirmation">
             <button type="button" onClick={() => this.handleCheckout()}>Checkout</button>
           </Link>

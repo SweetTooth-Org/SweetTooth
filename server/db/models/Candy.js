@@ -8,7 +8,7 @@ const Candy = db.define('candy', {
     unique: true,
     allowNull: false,
   },
-  price: Sequelize.DECIMAL(10,2),
+  price: Sequelize.DECIMAL(10, 2),
   imageUrl: {
     type: Sequelize.TEXT,
     defaultValue:
