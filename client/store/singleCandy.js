@@ -4,7 +4,7 @@ import axios from 'axios';
 const SET_SINGLE_CANDY = 'SET_SINGLE_CANDY';
 
 // Action Creators
-const setSingleCandy = (singleCandy) => {
+export const setSingleCandy = (singleCandy) => {
   return {
     type: SET_SINGLE_CANDY,
     singleCandy,

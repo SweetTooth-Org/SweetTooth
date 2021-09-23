@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { setSingleCandy } from './singleCandy';
 
 // Action Types
 const SET_CANDIES = 'SET_CANDIES';
@@ -49,11 +50,12 @@ export const submitNewCandy = (newCandyObj) => {
 export const updateCandy = (candyId, candyInfo) => {
   return async function (dispatch) {
     try {
-      const updatedCandyList = await axios.put('/api/candies/updateCandy', {
+      const { data } = await axios.put('/api/candies/updateCandy', {
         candyId,
         candyInfo,
       });
-      dispatch(setCandies(updatedCandyList.data));
+      dispatch(setCandies(data.newCandyList));
+      dispatch(setSingleCandy(data.singleCandy));
     } catch (error) {
       console.log(error);
     }
