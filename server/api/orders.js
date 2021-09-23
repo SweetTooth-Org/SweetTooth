@@ -27,4 +27,14 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+//PUT /api/orders
+router.put("/", async (req, res, next) => {
+  try {
+    const order = await Order.findByPk(req.body.id)
+    res.json(await order.update(req.body))
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = router;

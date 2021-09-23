@@ -9,6 +9,7 @@ import Checkout from './components/Checkout';
 import Admin from './components/Admin';
 import AdminCandyForm from './components/AdminCandyForm';
 import AdminUserList from './components/AdminUserList';
+import Confirmation from './components/Confirmation'
 
 /**
  * COMPONENT
@@ -31,6 +32,7 @@ class Routes extends Component {
             <Route path="/admin" component={Admin} />
             <Route path="/candies/:candyId" component={SingleCandy} />
             <Route path="/checkout" component={Checkout} />
+            <Route path="/confirmation" component={Confirmation} />
             <Route path="/home" component={Home} />
             <Redirect to="/home" />
           </Switch>

@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateCandyQuantity } from '../store/candyOrders';
+import { Link } from 'react-router-dom'
+import { checkoutCart } from '../store/cart'
 
 class Checkout extends React.Component {
   constructor(props) {
     super(props);
     this.handleChangeQty = this.handleChangeQty.bind(this);
+    this.handleCheckout = this.handleCheckout.bind(this)
   }
 
   handleChangeQty(candyOrder, type) {
@@ -20,6 +23,12 @@ class Checkout extends React.Component {
         quantity: candyOrder.quantity - 1,
       });
     }
+  }
+
+  async handleCheckout() {
+    console.log('entered handleCheckout')
+    const cart = this.props.cart
+    await this.props.checkoutCart({...cart, isFulfilled: true})
   }
 
   render() {
@@ -63,7 +72,9 @@ class Checkout extends React.Component {
         </div>
         <div id="total-checkout">
           <h3>Total: $$$</h3>
-          <button type="button">Checkout</button>
+          <Link to="/confirmation">
+            <button type="button" onClick={() => this.handleCheckout()}>Checkout</button>
+          </Link>
         </div>
       </React.Fragment>
     );
@@ -73,6 +84,7 @@ class Checkout extends React.Component {
 const mapState = (state) => {
   return {
     candyOrders: state.candyOrders,
+    cart: state.cart
   };
 };
 
@@ -80,6 +92,7 @@ const mapDispatch = (dispatch) => {
   return {
     updateCandyQuantity: (candyOrder) =>
       dispatch(updateCandyQuantity(candyOrder)),
+    checkoutCart: (cart) => dispatch(checkoutCart(cart))
   };
 };
 
