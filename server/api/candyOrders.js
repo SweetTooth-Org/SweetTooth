@@ -2,6 +2,22 @@ const CandyOrders = require('../db/models/CandyOrders');
 const Candy = require('../db/models/Candy');
 const router = require('express').Router();
 
+// GET /api/candyOrders/:id
+router.get('/:id', async (req, res, next) => {
+  try {
+    const candyOrders = await CandyOrders.findAll({
+      include: [Candy],
+      where: {
+        orderId: req.params.id,
+      },
+    });
+    res.status(200).json(candyOrders);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// POST /api/candyOrders
 router.post('/', async (req, res, next) => {
   try {
     const candyOrder = await CandyOrders.create({
@@ -22,6 +38,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+// PUT /api/candyOrders
 router.put('/', async (req, res, next) => {
   try {
     const [candyOrders] = await CandyOrders.findAll({

@@ -10,7 +10,6 @@ router.get('/:id', async (req, res, next) => {
         userId: req.params.id,
         isFulfilled: false,
       },
-      include: [CandyOrders],
     });
     res.status(200).json(cart);
   } catch (error) {
@@ -31,13 +30,13 @@ router.post('/', async (req, res, next) => {
 });
 
 //PUT /api/orders
-router.put("/", async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   try {
-    const order = await Order.findByPk(req.body.id)
-    res.json(await order.update(req.body))
+    const order = await Order.findByPk(req.body.id);
+    res.json(await order.update(req.body));
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
 module.exports = router;
