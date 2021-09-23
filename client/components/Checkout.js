@@ -26,7 +26,6 @@ class Checkout extends React.Component {
   }
 
   async handleCheckout() {
-    console.log('entered handleCheckout')
     const cart = this.props.cart
     await this.props.checkoutCart({...cart, isFulfilled: true})
   }

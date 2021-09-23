@@ -56,7 +56,7 @@ export default function (cart = initialState, action) {
     case CREATE_CART:
       return {...action.cart};
     case CHECKOUT_CART:
-      return {...action.cart}
+      return {}
     default:
       return cart;
   }
