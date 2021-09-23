@@ -8,7 +8,17 @@ const Candy = db.define('candy', {
     unique: true,
     allowNull: false,
   },
+<<<<<<< HEAD
+  price: {
+    type: Sequelize.FLOAT,
+    allowNull: false,
+    validate: {
+      isDecimal: true,
+    },
+  },
+=======
   price: Sequelize.DECIMAL(10, 2),
+>>>>>>> master
   imageUrl: {
     type: Sequelize.TEXT,
     defaultValue:
