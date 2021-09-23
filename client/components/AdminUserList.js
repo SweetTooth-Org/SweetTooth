@@ -17,7 +17,8 @@ class AdminUserList extends Component {
           {users.map(function (user) {
             return (
               <div key={user.id} className="admin-user-div">
-                <div>{`User ID: ${user.id} UserName: ${user.username}`}</div>
+                <div>{`User ID: ${user.id} Username: ${user.username}`}</div>
+                <div>{`Username: ${user.username}`}</div>
               </div>
             );
           })}

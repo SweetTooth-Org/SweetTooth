@@ -55,7 +55,8 @@ class Checkout extends React.Component {
                 </div>
                 <h4>$ {candyOrder.candy.price}</h4>
                 <h4>
-                  Total Price: $ {candyOrder.candy.price * candyOrder.quantity}
+                  Total Price: ${' '}
+                  {(candyOrder.candy.price * candyOrder.quantity).toFixed(2)}
                 </h4>
               </div>
             );

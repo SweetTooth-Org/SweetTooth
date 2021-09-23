@@ -35,7 +35,10 @@ class Admin extends Component {
     if (this.state.allCandies) {
       button = (
         <Link to="/addCandy">
-          <button onClick={this.handleAdd} className="admin-add-candy-btn">
+          <button
+            onClick={this.handleAdd}
+            className={'admin-add-candy-btn btn'}
+          >
             Add Candy
           </button>
         </Link>
@@ -45,7 +48,7 @@ class Admin extends Component {
           <div className="admin-candy-list">
             {candies.map(function (candy) {
               return (
-                <div className="admin-candy" key={candy.id}>
+                <div key={candy.id}>
                   <AdminSingleCandy candy={candy} />
                 </div>
               );
@@ -60,10 +63,10 @@ class Admin extends Component {
     return (
       <React.Fragment>
         <header className="admin-header">
-          <Link to="/users">
-            <button className="admin-users-btn">View Users List</button>
-          </Link>
           <h1>Admin Page</h1>
+          <Link to="/users">
+            <button className="admin-users-btn btn">View Users List</button>
+          </Link>
           {button}
         </header>
         <div>{toRender}</div>

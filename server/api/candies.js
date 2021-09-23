@@ -37,11 +37,6 @@ router.delete('/deleteCandy', async (req, res, next) => {
 
 router.post('/createCandy', async (req, res, next) => {
   try {
-    //If the candy to be created does not have an imageUrl, we'd like for a default image to take it's place. Must be a better way to do this...
-    if (req.body.imageUrl === '') {
-      req.body.imageUrl =
-        'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2FuZGllc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80';
-    }
     await Candy.create(req.body);
     const newCandyList = await Candy.findAll();
     res.send(newCandyList);
@@ -59,11 +54,11 @@ router.put('/updateCandy', async (req, res, next) => {
       candyInfo.imageUrl =
         'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2FuZGllc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80';
     }
-    console.log(candyInfo);
     await candy.update(candyInfo);
     await candy.save();
+    const singleCandy = await candy.reload();
     const newCandyList = await Candy.findAll();
-    res.send(newCandyList);
+    res.send({ newCandyList, singleCandy });
   } catch (error) {
     next(error);
   }

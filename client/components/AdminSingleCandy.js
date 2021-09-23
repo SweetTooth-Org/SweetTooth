@@ -21,14 +21,14 @@ class AdminSingleCandy extends Component {
     const candy = this.props.candy;
 
     return (
-      <div>
-        <div>{`Candy Name: ${candy.name}`}</div>
-        <div>{`Candy Price: ${candy.price}`}</div>
-        <button onClick={this.handleRemove} className="admin-remove-btn">
+      <div className="admin-single-candy-card">
+        <div>{`Name: ${candy.name}`}</div>
+        <div>{`Price: ${candy.price}`}</div>
+        <button onClick={this.handleRemove} className="admin-remove-btn btn">
           Remove
         </button>
         <Link to={`/edit/${candy.id}`}>
-          <button className="admin-edit-btn">Edit</button>
+          <button className="admin-edit-btn btn">Edit</button>
         </Link>
       </div>
     );
