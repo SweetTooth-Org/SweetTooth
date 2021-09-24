@@ -22,7 +22,6 @@ router.get('/:id', requireToken, async (req, res, next) => {
 router.post('/', requireToken, async (req, res, next) => {
   try {
     const { candyId, orderId, quantity, price } = req.body;
-    console.log(price);
     const candyOrder = await CandyOrders.create({
       candyId,
       orderId,
@@ -65,9 +64,8 @@ router.put('/', requireToken, async (req, res, next) => {
   }
 });
 
-router.delete('/:orderId/:candyId', async (req, res, next) => {
+router.delete('/:orderId/:candyId', requireToken, async (req, res, next) => {
   try {
-    console.log(req.params);
     const { candyId, orderId } = req.params;
     const [itemToDelete] = await CandyOrders.findAll({
       where: {

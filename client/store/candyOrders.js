@@ -53,9 +53,6 @@ export const setCandyOrders = (id) => async (dispatch) => {
 
 export const createCandyOrder = (candyOrder) => async (dispatch) => {
   try {
-    // const { data } = await axios.post('/api/candyOrders', candyOrder);
-    // dispatch(_createCandyOrder(data));
-
     if (token) {
       const { data } = await axios.post('/api/candyOrders', candyOrder, {
         headers: {
@@ -71,10 +68,21 @@ export const createCandyOrder = (candyOrder) => async (dispatch) => {
 
 export const deleteCandyOrder = (candyOrder) => async (dispatch) => {
   try {
-    const { data } = await axios.delete(
-      `/api/candyOrders/${candyOrder.orderId}/${candyOrder.candyId}`
-    );
-    dispatch(_deleteCandyOrder(data));
+    // const { data } = await axios.delete(
+    //   `/api/candyOrders/${candyOrder.orderId}/${candyOrder.candyId}`
+    // );
+    // dispatch(_deleteCandyOrder(data));
+    if (token) {
+      const { data } = await axios.delete(
+        `/api/candyOrders/${candyOrder.orderId}/${candyOrder.candyId}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      dispatch(_deleteCandyOrder(data));
+    }
   } catch (error) {
     console.log(error);
   }
