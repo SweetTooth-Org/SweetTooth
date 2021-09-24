@@ -16,6 +16,43 @@ class CandiesList extends React.Component {
     this.props.loadCandies();
   }
 
+  handleCart(candy, userId) {
+    this.props.isLoggedIn
+      ? this.handleCreateCart(candy, userId)
+      : this.handleGuestCart(candy);
+  }
+
+  handleGuestCart(candy) {
+    // Creating the candyOrder instance
+    const candyOrder = {};
+    candyOrder.candyId = candy.id;
+    candyOrder.price = candy.price;
+    candyOrder.quantity = 1;
+
+    // Parsing or creating the array from local storage
+    const cartHistory =
+      JSON.parse(localStorage.getItem('tracked-orders')) || [];
+
+    // does item exist in our local storage?
+    let doesExist = false;
+
+    // Updating quantity, price and doesExist
+    cartHistory.forEach((item) => {
+      if (item.candyId === candyOrder.candyId) {
+        doesExist = true;
+        item.quantity = item.quantity + 1;
+        item.price = item.price * item.quantity;
+      }
+    });
+
+    // If does not exist push new item to array
+    if (!doesExist) {
+      cartHistory.push(candyOrder);
+    }
+
+    localStorage.setItem('tracked-orders', JSON.stringify(cartHistory));
+  }
+
   async handleCreateCart(candy, userId) {
     if (this.props.cart.id) {
       //check if the candy exists in candyOrders
@@ -60,6 +97,7 @@ class CandiesList extends React.Component {
   render() {
     const candies = this.props.candies;
     const userId = this.props.userId;
+    console.log(this.props);
     return (
       <React.Fragment>
         <h2>Shop All Candies</h2>
@@ -74,7 +112,7 @@ class CandiesList extends React.Component {
                 </Link>
                 <button
                   type="button"
-                  onClick={() => this.handleCreateCart(candy, userId)}
+                  onClick={() => this.handleCart(candy, userId)}
                 >
                   Add To Cart
                 </button>
@@ -89,6 +127,7 @@ class CandiesList extends React.Component {
 
 const mapState = (state) => {
   return {
+    isLoggedIn: !!state.auth.id,
     candies: state.candies,
     userId: state.auth.id,
     cart: state.cart,

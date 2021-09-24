@@ -1,5 +1,4 @@
 const Order = require('../db/models/Order');
-const CandyOrders = require('../db/models/CandyOrders');
 const router = require('express').Router();
 const { requireToken } = require('./gateKeepingMiddleWare');
 
@@ -8,7 +7,7 @@ router.get('/:id', requireToken, async (req, res, next) => {
   try {
     const [cart] = await Order.findAll({
       where: {
-        userId: req.params.id,
+        userId: req.user.id,
         isFulfilled: false,
       },
     });
