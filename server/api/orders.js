@@ -4,7 +4,7 @@ const router = require('express').Router();
 const { requireToken } = require('./gateKeepingMiddleWare');
 
 // GET /api/orders/:id
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', requireToken, async (req, res, next) => {
   try {
     const [cart] = await Order.findAll({
       where: {

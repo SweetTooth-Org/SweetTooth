@@ -40,8 +40,14 @@ export const _checkoutCart = (cart) => ({
 
 export const setCart = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.get(`/api/orders/${id}`);
-    dispatch(_setCart(data));
+    if (token) {
+      const { data } = await axios.get(`/api/orders/${id}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      dispatch(_setCart(data));
+    }
   } catch (error) {
     console.log(error);
   }
