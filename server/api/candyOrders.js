@@ -1,9 +1,10 @@
 const CandyOrders = require('../db/models/CandyOrders');
 const Candy = require('../db/models/Candy');
 const router = require('express').Router();
+const { requireToken } = require('./gateKeepingMiddleWare');
 
 // GET /api/candyOrders/:id
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', requireToken, async (req, res, next) => {
   try {
     const candyOrders = await CandyOrders.findAll({
       include: [Candy],
@@ -18,10 +19,9 @@ router.get('/:id', async (req, res, next) => {
 });
 
 // POST /api/candyOrders
-router.post('/', async (req, res, next) => {
+router.post('/', requireToken, async (req, res, next) => {
   try {
     const { candyId, orderId, quantity, price } = req.body;
-    console.log(price);
     const candyOrder = await CandyOrders.create({
       candyId,
       orderId,
@@ -42,7 +42,7 @@ router.post('/', async (req, res, next) => {
 });
 
 // PUT /api/candyOrders
-router.put('/', async (req, res, next) => {
+router.put('/', requireToken, async (req, res, next) => {
   try {
     const [candyOrders] = await CandyOrders.findAll({
       where: {
@@ -64,9 +64,8 @@ router.put('/', async (req, res, next) => {
   }
 });
 
-router.delete('/:orderId/:candyId', async (req, res, next) => {
+router.delete('/:orderId/:candyId', requireToken, async (req, res, next) => {
   try {
-    console.log(req.params);
     const { candyId, orderId } = req.params;
     const [itemToDelete] = await CandyOrders.findAll({
       where: {

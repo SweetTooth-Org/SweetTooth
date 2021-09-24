@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+const TOKEN = 'token';
+const token = window.localStorage.getItem(TOKEN);
+
 // Action Types
 const SET_USERS = 'SET_USERS';
 
@@ -12,11 +15,20 @@ const setUsers = (users) => {
 };
 
 // Thunk Creators
-export const fetchUsers = () => {
-  console.log('fetching...');
-  return async (dispatch) => {
-    const { data } = await axios.get('/api/users');
-    return dispatch(setUsers(data));
+export const fetchUsers = function () {
+  return async function (dispatch) {
+    try {
+      if (token) {
+        const { data } = await axios.get('/api/users', {
+          headers: {
+            authorization: token,
+          },
+        });
+        return dispatch(setUsers(data));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
 

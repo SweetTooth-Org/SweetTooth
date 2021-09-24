@@ -1,4 +1,6 @@
 import axios from 'axios';
+const TOKEN = 'token';
+const token = window.localStorage.getItem(TOKEN);
 
 // Action Constants
 const SET_CANDY_ORDERS = 'SET_CANDY_ORDERS';
@@ -36,8 +38,14 @@ export const _checkoutCandyOrders = () => ({
 // Thunk Creators
 export const setCandyOrders = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.get(`/api/candyOrders/${id}`);
-    dispatch(_setCandyOrders(data));
+    if (token) {
+      const { data } = await axios.get(`/api/candyOrders/${id}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      dispatch(_setCandyOrders(data));
+    }
   } catch (error) {
     console.log(error);
   }
@@ -45,8 +53,14 @@ export const setCandyOrders = (id) => async (dispatch) => {
 
 export const createCandyOrder = (candyOrder) => async (dispatch) => {
   try {
-    const { data } = await axios.post('/api/candyOrders', candyOrder);
-    dispatch(_createCandyOrder(data));
+    if (token) {
+      const { data } = await axios.post('/api/candyOrders', candyOrder, {
+        headers: {
+          authorization: token,
+        },
+      });
+      dispatch(_createCandyOrder(data));
+    }
   } catch (error) {
     console.log(error);
   }
@@ -54,10 +68,21 @@ export const createCandyOrder = (candyOrder) => async (dispatch) => {
 
 export const deleteCandyOrder = (candyOrder) => async (dispatch) => {
   try {
-    const { data } = await axios.delete(
-      `/api/candyOrders/${candyOrder.orderId}/${candyOrder.candyId}`
-    );
-    dispatch(_deleteCandyOrder(data));
+    // const { data } = await axios.delete(
+    //   `/api/candyOrders/${candyOrder.orderId}/${candyOrder.candyId}`
+    // );
+    // dispatch(_deleteCandyOrder(data));
+    if (token) {
+      const { data } = await axios.delete(
+        `/api/candyOrders/${candyOrder.orderId}/${candyOrder.candyId}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      dispatch(_deleteCandyOrder(data));
+    }
   } catch (error) {
     console.log(error);
   }
@@ -65,8 +90,14 @@ export const deleteCandyOrder = (candyOrder) => async (dispatch) => {
 
 export const updateCandyQuantity = (candyOrder) => async (dispatch) => {
   try {
-    const { data } = await axios.put('/api/candyOrders', candyOrder);
-    dispatch(_updateCandyQuantity(data));
+    if (token) {
+      const { data } = await axios.put('/api/candyOrders', candyOrder, {
+        headers: {
+          authorization: token,
+        },
+      });
+      dispatch(_updateCandyQuantity(data));
+    }
   } catch (error) {
     console.log(error);
   }

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { setSingleCandy } from './singleCandy';
 const TOKEN = 'token';
+const token = window.localStorage.getItem(TOKEN);
 
 // Action Types
 const SET_CANDIES = 'SET_CANDIES';
@@ -22,18 +23,16 @@ export const fetchCandies = () => {
 };
 
 export const deleteCandy = function (candyId) {
-  const token = window.localStorage.getItem(TOKEN);
-  let updatedCandyList;
   return async function (dispatch) {
     try {
       if (token) {
-        updatedCandyList = await axios.delete(`/api/candies/${candyId}`, {
+        const { data } = await axios.delete(`/api/candies/${candyId}`, {
           headers: {
             authorization: token,
           },
         });
+        dispatch(setCandies(data));
       }
-      dispatch(setCandies(updatedCandyList.data));
     } catch (error) {
       console.log(error.message);
     }
@@ -41,18 +40,16 @@ export const deleteCandy = function (candyId) {
 };
 
 export const submitNewCandy = (newCandyObj) => {
-  const token = window.localStorage.getItem(TOKEN);
-  let updatedCandyList;
   return async function (dispatch) {
     try {
       if (token) {
-        updatedCandyList = await axios.post('/api/candies', newCandyObj, {
+        const { data } = await axios.post('/api/candies', newCandyObj, {
           headers: {
             authorization: token,
           },
         });
+        dispatch(setCandies(data));
       }
-      dispatch(setCandies(updatedCandyList.data));
     } catch (error) {
       console.log(error.message);
     }
@@ -60,7 +57,6 @@ export const submitNewCandy = (newCandyObj) => {
 };
 
 export const updateCandy = (candyId, candyInfo) => {
-  const token = window.localStorage.getItem(TOKEN);
   return async function (dispatch) {
     try {
       if (token) {

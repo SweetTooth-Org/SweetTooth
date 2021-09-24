@@ -1,4 +1,6 @@
 import axios from 'axios';
+const TOKEN = 'token';
+const token = window.localStorage.getItem(TOKEN);
 
 //ACTION TYPES
 // const SET_CART_COUNT = "SET_CART_COUNT"
@@ -38,8 +40,14 @@ export const _checkoutCart = (cart) => ({
 
 export const setCart = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.get(`/api/orders/${id}`);
-    dispatch(_setCart(data));
+    if (token) {
+      const { data } = await axios.get(`/api/orders/${id}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      dispatch(_setCart(data));
+    }
   } catch (error) {
     console.log(error);
   }
@@ -47,17 +55,30 @@ export const setCart = (id) => async (dispatch) => {
 
 export const createCart = (order) => async (dispatch) => {
   try {
-    const { data } = await axios.post('/api/orders/', order);
-    dispatch(_createCart(data));
+    if (token) {
+      const { data } = await axios.post('/api/orders/', order, {
+        headers: {
+          authorization: token,
+        },
+      });
+      dispatch(_createCart(data));
+    }
   } catch (error) {
     console.log(error);
   }
 };
 
 export const checkoutCart = (order) => async (dispatch) => {
+  console.log(order);
   try {
-    const { data } = await axios.put('/api/orders/', order);
-    dispatch(_checkoutCart(data));
+    if (token) {
+      const { data } = await axios.put('/api/orders/', order, {
+        headers: {
+          authorization: token,
+        },
+      });
+      dispatch(_checkoutCart(data));
+    }
   } catch (error) {
     console.log(error);
   }

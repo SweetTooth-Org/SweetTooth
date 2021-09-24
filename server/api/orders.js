@@ -1,9 +1,10 @@
 const Order = require('../db/models/Order');
 const CandyOrders = require('../db/models/CandyOrders');
 const router = require('express').Router();
+const { requireToken } = require('./gateKeepingMiddleWare');
 
 // GET /api/orders/:id
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', requireToken, async (req, res, next) => {
   try {
     const [cart] = await Order.findAll({
       where: {
@@ -18,7 +19,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 //POST /api/orders/
-router.post('/', async (req, res, next) => {
+router.post('/', requireToken, async (req, res, next) => {
   try {
     const order = await Order.create({
       userId: req.body.userId,
@@ -30,7 +31,7 @@ router.post('/', async (req, res, next) => {
 });
 
 //PUT /api/orders
-router.put('/', async (req, res, next) => {
+router.put('/', requireToken, async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.body.id);
     res.json(await order.update(req.body));
