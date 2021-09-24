@@ -32,7 +32,7 @@ const genRandomUsers = function (num) {
   for (let i = 0; i < num; i++) {
     const nameOne = faker.name.firstName();
     const nameTwo = faker.name.lastName();
-    const email = `{${nameOne}${nameTwo}.gmail.com}`;
+    const email = `${nameOne}${nameTwo}@gmail.com`;
     result.push({
       username: `${nameOne}${nameTwo}`,
       password: `${nameOne}${nameTwo}pw`,
@@ -61,7 +61,7 @@ async function seed() {
     User.create({
       username: 'murphy',
       password: '123',
-      email: 'cody@gamil.com',
+      email: 'murphy@gamil.com',
     }),
     User.create({
       username: 'rohan',
