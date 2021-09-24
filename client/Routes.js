@@ -9,7 +9,7 @@ import Checkout from './components/Checkout';
 import Admin from './components/Admin';
 import AdminCandyForm from './components/AdminCandyForm';
 import AdminUserList from './components/AdminUserList';
-import Confirmation from './components/Confirmation'
+import Confirmation from './components/Confirmation';
 
 /**
  * COMPONENT
@@ -20,16 +20,20 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, isAdmin } = this.props;
     //I added a few routes that are part of the Admin View. Makes it easy to go back in history. Later we will have to protect these routes from non Admin users
     return (
       <div>
-        {isLoggedIn ? (
+        {isAdmin ? (
           <Switch>
             <Route path="/users" component={AdminUserList} />
             <Route path="/addCandy" component={AdminCandyForm} />
             <Route path="/edit/:candyId" component={AdminCandyForm} />
             <Route path="/admin" component={Admin} />
+            <Redirect to="/admin" />
+          </Switch>
+        ) : isLoggedIn ? (
+          <Switch>
             <Route path="/candies/:candyId" component={SingleCandy} />
             <Route path="/checkout" component={Checkout} />
             <Route path="/confirmation" component={Confirmation} />
@@ -42,6 +46,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/checkout" component={Checkout} />
+            <Route path="/candies/:candyId" component={SingleCandy} />
           </Switch>
         )}
       </div>
@@ -57,6 +62,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
+    isAdmin: !!state.auth.isAdmin,
   };
 };
 

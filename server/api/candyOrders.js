@@ -1,9 +1,10 @@
 const CandyOrders = require('../db/models/CandyOrders');
 const Candy = require('../db/models/Candy');
 const router = require('express').Router();
+const { requireToken } = require('./gateKeepingMiddleWare');
 
 // GET /api/candyOrders/:id
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', requireToken, async (req, res, next) => {
   try {
     const candyOrders = await CandyOrders.findAll({
       include: [Candy],
@@ -18,7 +19,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 // POST /api/candyOrders
-router.post('/', async (req, res, next) => {
+router.post('/', requireToken, async (req, res, next) => {
   try {
     const candyOrder = await CandyOrders.create({
       candyId: req.body.candyId,
@@ -39,7 +40,7 @@ router.post('/', async (req, res, next) => {
 });
 
 // PUT /api/candyOrders
-router.put('/', async (req, res, next) => {
+router.put('/', requireToken, async (req, res, next) => {
   try {
     const [candyOrders] = await CandyOrders.findAll({
       where: {

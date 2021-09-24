@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const TOKEN = 'token';
+
 // Action Types
 const SET_USERS = 'SET_USERS';
 
@@ -13,7 +15,6 @@ const setUsers = (users) => {
 
 // Thunk Creators
 export const fetchUsers = () => {
-  console.log('fetching...');
   return async (dispatch) => {
     const { data } = await axios.get('/api/users');
     return dispatch(setUsers(data));
