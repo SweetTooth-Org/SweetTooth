@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
+import { logoutCart } from '../store/cart';
+import { logoutCandyOrders } from '../store/candyOrders';
 import Cart from './Cart';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
@@ -41,8 +43,10 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick() {
-      dispatch(logout());
+    async handleClick() {
+      await dispatch(logout());
+      await dispatch(logoutCart());
+      await dispatch(logoutCandyOrders());
     },
   };
 };
