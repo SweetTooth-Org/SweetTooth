@@ -21,14 +21,17 @@ class GuestCheckout extends React.Component {
   loadLocalStorage() {
     // Getting local storage & total price
     const trackedOrders = JSON.parse(localStorage.getItem('tracked-orders'));
-    const total = trackedOrders.reduce((accum, order) => {
-      return (accum += order.price);
-    }, 0);
 
-    this.setState({
-      candyOrders: [...trackedOrders],
-      total,
-    });
+    if (trackedOrders) {
+      const total = trackedOrders.reduce((accum, order) => {
+        return (accum += order.price);
+      }, 0);
+
+      this.setState({
+        candyOrders: [...trackedOrders],
+        total,
+      });
+    }
   }
 
   handleChangeQty(candyOrder, type) {
