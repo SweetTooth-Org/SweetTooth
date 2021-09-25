@@ -6,7 +6,7 @@ const CandyOrders = db.define('candyorders', {
     type: Sequelize.INTEGER,
     validate: {
       max: 10,
-      min: 0,
+      min: 1,
     },
   },
   price: {

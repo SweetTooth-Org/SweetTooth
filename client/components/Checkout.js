@@ -42,14 +42,16 @@ class Checkout extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     const candyOrders = this.props.candyOrders;
+
     let total = 0;
     return (
       <React.Fragment>
         <h2>Checkout</h2>
         <div id="checkout-container">
           {candyOrders.map((candyOrder) => {
-            total += candyOrder.candy.price * candyOrder.quantity;
+            total += candyOrder.price * candyOrder.quantity;
             return (
               <div
                 id="checkout-item"
@@ -77,10 +79,13 @@ class Checkout extends React.Component {
                     </button>
                   </div>
                 </div>
-                <h4>$ {(candyOrder.candy.price/100).toFixed(2)}</h4>
+                <h4>$ {(candyOrder.candy.price / 100).toFixed(2)}</h4>
                 <h4>
                   Total Price: ${' '}
-                  {((candyOrder.candy.price * candyOrder.quantity)/100).toFixed(2)}
+                  {(
+                    (candyOrder.candy.price * candyOrder.quantity) /
+                    100
+                  ).toFixed(2)}
                 </h4>
                 <button
                   id="delete-item"
@@ -94,7 +99,7 @@ class Checkout extends React.Component {
           })}
         </div>
         <div id="total-checkout">
-          <h2>Total: {(total/100).toFixed(2)}</h2>
+          <h2>Total: {(total / 100).toFixed(2)}</h2>
           <Link to="/confirmation">
             <button type="button" onClick={() => this.handleCheckout()}>
               Checkout
@@ -108,6 +113,7 @@ class Checkout extends React.Component {
 
 const mapState = (state) => {
   return {
+    isLoggedIn: !!state.auth.id,
     candyOrders: state.candyOrders,
     cart: state.cart,
   };
@@ -115,6 +121,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
+    loadCart: (id) => dispatch(setCart(id)),
     loadCandyOrders: (id) => dispatch(setCandyOrders(id)),
     updateCandyQuantity: (candyOrder) =>
       dispatch(updateCandyQuantity(candyOrder)),

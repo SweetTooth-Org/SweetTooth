@@ -5,6 +5,7 @@ import { logout } from '../store';
 import { logoutCart } from '../store/cart';
 import { logoutCandyOrders } from '../store/candyOrders';
 import Cart from './Cart';
+import GuestCart from './GuestCart';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
@@ -24,7 +25,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           {/* The navbar will show these links before you log in */}
           <Link to="/login">Home</Link>
           <Link to="/signup">Sign Up</Link>
-          <Cart />
+          <GuestCart />
         </div>
       )}
     </nav>
