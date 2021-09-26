@@ -71,7 +71,7 @@ export class SingleCandy extends Component {
         await this.props.updateCandyQuantity({
           ...preexistingCandyOrder,
           quantity: updatedQuantity,
-          price: Math.round(candy.price * updatedQuantity),
+          price: candy.price * updatedQuantity,
         });
       } else {
         //create new candyOrder
@@ -79,7 +79,7 @@ export class SingleCandy extends Component {
           orderId: this.props.cart.id,
           candyId: candy.id,
           quantity: 1,
-          price: Math.round(candy.price),
+          price: candy.price,
         });
       }
     } else {
@@ -88,7 +88,7 @@ export class SingleCandy extends Component {
         orderId: this.props.cart.id,
         candyId: candy.id,
         quantity: 1,
-        price: Math.round(candy.price),
+        price: candy.price,
       });
     }
   }
