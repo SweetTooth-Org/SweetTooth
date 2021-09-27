@@ -11,6 +11,7 @@ import AdminCandyForm from './components/AdminCandyForm';
 import AdminUserList from './components/AdminUserList';
 import Confirmation from './components/Confirmation';
 import GuestCheckout from './components/GuestCheckout';
+import OrdersList from './components/OrdersList';
 
 /**
  * COMPONENT
@@ -35,6 +36,7 @@ class Routes extends Component {
           </Switch>
         ) : isLoggedIn ? (
           <Switch>
+            <Route path="/orderslist" component={OrdersList} />
             <Route path="/candies/:candyId" component={SingleCandy} />
             <Route path="/checkout" component={Checkout} />
             <Route path="/confirmation" component={Confirmation} />
