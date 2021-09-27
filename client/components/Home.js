@@ -20,7 +20,6 @@ class Home extends React.Component {
       const trackedOrders = JSON.parse(localStorage.getItem('tracked-orders'));
 
       if (trackedOrders !== null) {
-        debugger;
         await this.props.createCart({ userId });
 
         for (const order of trackedOrders) {
