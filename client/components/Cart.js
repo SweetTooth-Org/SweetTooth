@@ -7,6 +7,10 @@ import { setCandyOrders } from '../store/candyOrders';
 class Cart extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      totalItems: 0,
+    };
   }
 
   async componentDidMount() {
@@ -19,7 +23,12 @@ class Cart extends Component {
   render() {
     return (
       <Link to={`/checkout`}>
-        <span>Cart {`(${this.props.candyOrders.length})`}</span>
+        <span>
+          Cart{' '}
+          {this.props.candyOrders.reduce((accum, order) => {
+            return (accum += order.quantity);
+          }, 0)}
+        </span>
       </Link>
     );
   }
