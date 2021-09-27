@@ -42,11 +42,11 @@ class OrdersList extends React.Component {
                           <h4>{candyOrder.quantity}</h4>
                         </div>
                       </div>
-                      <h4>$ {(candyOrder.candy.price / 100).toFixed(2)}</h4>
+                      <h4>$ {(candyOrder.price / 100).toFixed(2)}</h4>
                       <h4>
                         Total Price: ${' '}
                         {(
-                          (candyOrder.candy.price * candyOrder.quantity) /
+                          (candyOrder.price * candyOrder.quantity) /
                           100
                         ).toFixed(2)}
                       </h4>
