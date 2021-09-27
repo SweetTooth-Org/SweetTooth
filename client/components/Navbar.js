@@ -1,12 +1,13 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
-import { logoutCart } from '../store/cart'
-import { logoutCandyOrders } from '../store/candyOrders'
-import Cart from './Cart'
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { logout } from '../store';
+import { logoutCart } from '../store/cart';
+import { logoutCandyOrders } from '../store/candyOrders';
+import Cart from './Cart';
+import GuestCart from './GuestCart';
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
     <h1>SweetTooth</h1>
     <nav>
@@ -22,32 +23,33 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
+          <Link to="/login">Home</Link>
           <Link to="/signup">Sign Up</Link>
+          <GuestCart />
         </div>
       )}
     </nav>
     <hr />
   </div>
-)
+);
 
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = (state) => {
   return {
-    isLoggedIn: !!state.auth.id
-  }
-}
+    isLoggedIn: !!state.auth.id,
+  };
+};
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     async handleClick() {
-      await dispatch(logout())
-      await dispatch(logoutCart())
-      await dispatch(logoutCandyOrders())
-    }
-  }
-}
+      await dispatch(logout());
+      await dispatch(logoutCart());
+      await dispatch(logoutCandyOrders());
+    },
+  };
+};
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(mapState, mapDispatch)(Navbar);

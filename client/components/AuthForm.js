@@ -61,6 +61,7 @@ const mapLogin = (state) => {
     name: 'login',
     displayName: 'Login',
     error: state.auth.error,
+    auth: state.auth,
   };
 };
 
@@ -75,7 +76,9 @@ const mapSignup = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     handleSubmit(evt) {
+      // Prevent reload page
       evt.preventDefault();
+      // Sign Up / Login user
       const formName = evt.target.name;
       const username = evt.target.username.value;
       const password = evt.target.password.value;

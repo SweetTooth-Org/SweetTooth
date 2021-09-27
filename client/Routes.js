@@ -10,6 +10,7 @@ import Admin from './components/Admin';
 import AdminCandyForm from './components/AdminCandyForm';
 import AdminUserList from './components/AdminUserList';
 import Confirmation from './components/Confirmation';
+import GuestCheckout from './components/GuestCheckout';
 
 /**
  * COMPONENT
@@ -45,7 +46,7 @@ class Routes extends Component {
             <Route path="/" exact component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/checkout" component={Checkout} />
+            <Route path="/checkout" component={GuestCheckout} />
             <Route path="/candies/:candyId" component={SingleCandy} />
           </Switch>
         )}
