@@ -16,17 +16,16 @@ class OrdersList extends React.Component {
   render() {
     const orders = this.props.orders
     return (
-      <React.Fragment>
-        <h2>Prior Orders</h2>
+      <Link to={`/orderslist`}>
+        <span>Order History</span>
         <div id="checkout-container">
           {orders.map((order) => {
             return (
-              <div id="checkout-item" key={order.id}>
-                <h4>{order.}
+              <div id="checkout-item" key={order.id}></div>
             )
           })}
         </div>
-      </React.Fragment>
+      </Link>
 
     )
   }

@@ -1,6 +1,6 @@
 import axios from 'axios'
 const TOKEN = 'token'
-const token = window.localStorage.getItem(token)
+const token = window.localStorage.getItem(TOKEN)
 
 //ACTION TYPES
 const SET_ORDERS = 'SET_ORDERS'
