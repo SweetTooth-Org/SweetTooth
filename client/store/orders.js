@@ -14,8 +14,25 @@ export const _setOrders = (orders) => ({
 //THUNK CREATORS
 export const setOrders = (id) => async (dispatch) => {
   try {
-    const { data } =
+    const { data } = await axios.get(`/api/orders/fulfilled/${id}`, {
+      headers: {
+        authorization: token
+      }
+    })
+    dispatch(_setOrders(data))
   } catch (error) {
     console.log(error)
+  }
+}
+
+//REDUCER
+
+const initialState = []
+export default function (orders = initialState, action) {
+  switch (action.type) {
+    case SET_ORDERS:
+      return action.orders
+    default:
+      return orders
   }
 }

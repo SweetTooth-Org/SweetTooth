@@ -3,8 +3,24 @@ const CandyOrders = require('../db/models/CandyOrders');
 const router = require('express').Router();
 const { requireToken } = require('./gateKeepingMiddleWare');
 
-// GET /api/orders/:id
-router.get('/:id', requireToken, async (req, res, next) => {
+// GET /api/orders/unfulfilled/:id
+router.get('/fulfilled/:id', requireToken, async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      include: [CandyOrders, Candy],
+      where: {
+        userId: req.params.id,
+        isFulfilled: true,
+      },
+    });
+    res.status(200).json(orders);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// GET /api/orders/unfulfilled/:id
+router.get('/unfulfilled/:id', requireToken, async (req, res, next) => {
   try {
     const [cart] = await Order.findAll({
       where: {
