@@ -64,8 +64,6 @@ class Home extends React.Component {
                 (updatedOrder.price = order.price);
             }
           }
-
-          console.log('UPDATE:::', updatedOrder);
           // Updating the candyOrder or adding it if it doesn't exist
           doesExist
             ? await this.props.updateCandyOrder(updatedOrder)
@@ -90,7 +88,6 @@ class Home extends React.Component {
     }
     localStorage.removeItem('tracked-orders');
   }
-  4;
 
   render() {
     return (
