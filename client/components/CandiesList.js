@@ -113,6 +113,7 @@ class CandiesList extends React.Component {
                 </Link>
                 <button
                   type="button"
+                  className="add-to-cart-btn"
                   onClick={() => this.handleCart(candy, userId)}
                 >
                   Add To Cart

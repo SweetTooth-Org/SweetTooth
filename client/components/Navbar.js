@@ -1,32 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { logout } from '../store';
 import { logoutCart } from '../store/cart';
 import { logoutCandyOrders } from '../store/candyOrders';
 import Cart from './Cart';
 import GuestCart from './GuestCart';
-import OrderHistoryButton from './OrderHistoryButton'
+import OrderHistoryButton from './OrderHistoryButton';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
     <h1>SweetTooth</h1>
     <nav>
       {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-          <Cart />
-          <OrderHistoryButton />
+        <div className="nav-container">
+          <div>
+            <NavLink to="/home">Home</NavLink>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
+          <div>
+            <OrderHistoryButton />
+            <Cart />
+          </div>
         </div>
       ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Home</Link>
-          <Link to="/signup">Sign Up</Link>
+        <div className="nav-container">
+          <div>
+            <NavLink to="/login">Home</NavLink>
+            <NavLink to="/signup">Sign Up</NavLink>
+          </div>
           <GuestCart />
         </div>
       )}
