@@ -62,7 +62,7 @@ class Home extends React.Component {
             }
           }, {});
 
-          console.log(this.props.candyOrders, updatedOrder);
+          console.log('UPDATE:::', updatedOrder);
           // Updating the candyOrder or adding it if it doesn't exist
           doesExist
             ? await this.props.updateCandyOrder(updatedOrder)
