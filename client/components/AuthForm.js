@@ -8,6 +8,19 @@ import CandiesList from './CandiesList';
  */
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
+  let email;
+  if (displayName === 'Sign Up') {
+    email = (
+      <div>
+        <label htmlFor="email">
+          <small>Email</small>
+        </label>
+        <input name="email" type="text" />
+      </div>
+    );
+  } else {
+    email = <React.Fragment></React.Fragment>;
+  }
   return (
     <React.Fragment>
       <div>
@@ -24,6 +37,7 @@ const AuthForm = (props) => {
             </label>
             <input name="password" type="password" />
           </div>
+          {email}
           <div>
             <button type="submit">{displayName}</button>
           </div>
@@ -47,6 +61,7 @@ const mapLogin = (state) => {
     name: 'login',
     displayName: 'Login',
     error: state.auth.error,
+    auth: state.auth,
   };
 };
 
@@ -61,11 +76,14 @@ const mapSignup = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     handleSubmit(evt) {
+      // Prevent reload page
       evt.preventDefault();
+      // Sign Up / Login user
       const formName = evt.target.name;
       const username = evt.target.username.value;
       const password = evt.target.password.value;
-      dispatch(authenticate(username, password, formName));
+      const email = evt.target.email ? evt.target.email.value : '';
+      dispatch(authenticate(username, password, formName, email));
     },
   };
 };

@@ -15,6 +15,44 @@ export class SingleCandy extends Component {
     this.props.loadSingleCandy(this.props.match.params.candyId);
   }
 
+  handleCart(singleCandy, userId) {
+    this.props.isLoggedIn
+      ? this.handleAddToCart(singleCandy, userId)
+      : this.handleGuestCart(singleCandy);
+  }
+
+  handleGuestCart(candy) {
+    // Creating the candyOrder instance
+    const candyOrder = {};
+    candyOrder.candyId = candy.id;
+    candyOrder.price = candy.price;
+    candyOrder.quantity = 1;
+    candyOrder.candy = candy;
+
+    // Parsing or creating the array from local storage
+    const cartHistory =
+      JSON.parse(localStorage.getItem('tracked-orders')) || [];
+
+    // does item exist in our local storage?
+    let doesExist = false;
+
+    // Updating quantity, price and doesExist
+    cartHistory.forEach((item) => {
+      if (item.candyId === candyOrder.candyId) {
+        doesExist = true;
+        item.quantity = item.quantity + 1;
+        item.price = item.price * item.quantity;
+      }
+    });
+
+    // If does not exist push new item to array
+    if (!doesExist) {
+      cartHistory.push(candyOrder);
+    }
+
+    localStorage.setItem('tracked-orders', JSON.stringify(cartHistory));
+  }
+
   async handleAddToCart(candy, userId) {
     if (this.props.cart.id) {
       //check if the candy exists in candyOrders
@@ -34,7 +72,7 @@ export class SingleCandy extends Component {
         await this.props.updateCandyQuantity({
           ...preexistingCandyOrder,
           quantity: updatedQuantity,
-          price: Math.round(candy.price * updatedQuantity),
+          price: candy.price * updatedQuantity,
         });
       } else {
         //create new candyOrder
@@ -42,7 +80,7 @@ export class SingleCandy extends Component {
           orderId: this.props.cart.id,
           candyId: candy.id,
           quantity: 1,
-          price: Math.round(candy.price),
+          price: candy.price,
         });
       }
     } else {
@@ -51,7 +89,7 @@ export class SingleCandy extends Component {
         orderId: this.props.cart.id,
         candyId: candy.id,
         quantity: 1,
-        price: Math.round(candy.price),
+        price: candy.price,
       });
     }
   }
@@ -82,7 +120,7 @@ export class SingleCandy extends Component {
                 <h3>{`Price: $ ${(singleCandy.price / 100).toFixed(2)}`}</h3>
                 <button
                   className="add-cart-button"
-                  onClick={() => this.handleAddToCart(singleCandy, userId)}
+                  onClick={() => this.handleCart(singleCandy, userId)}
                 >
                   Add To Cart
                 </button>
@@ -97,6 +135,7 @@ export class SingleCandy extends Component {
 
 const mapState = (state) => {
   return {
+    isLoggedIn: !!state.auth.id,
     singleCandy: state.singleCandy,
     userId: state.auth.id,
     cart: state.cart,

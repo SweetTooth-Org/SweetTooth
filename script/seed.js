@@ -20,8 +20,8 @@ const candyObjs = candiesData.map(function (candy) {
   return {
     name: candy,
     price,
-    imageUrl:
-      'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2FuZGllc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
+    // imageUrl:
+    //   'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2FuZGllc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
   };
 });
 
@@ -32,7 +32,7 @@ const genRandomUsers = function (num) {
   for (let i = 0; i < num; i++) {
     const nameOne = faker.name.firstName();
     const nameTwo = faker.name.lastName();
-    const email = `{${nameOne}${nameTwo}.gmail.com}`;
+    const email = `${nameOne}${nameTwo}@gmail.com`;
     result.push({
       username: `${nameOne}${nameTwo}`,
       password: `${nameOne}${nameTwo}pw`,
@@ -61,7 +61,7 @@ async function seed() {
     User.create({
       username: 'murphy',
       password: '123',
-      email: 'cody@gamil.com',
+      email: 'murphy@gamil.com',
     }),
     User.create({
       username: 'rohan',

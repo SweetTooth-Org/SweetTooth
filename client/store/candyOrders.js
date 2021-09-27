@@ -8,7 +8,7 @@ const CREATE_CANDY_ORDER = 'CREATE_CANDY_ORDER';
 const DELETE_CANDY_ORDER = 'DELETE_CANDY_ORDER';
 const UPDATE_CANDY_QUANTITY = 'UPDATE_CANDY_QUANTIY';
 const CHECKOUT_CANDY_ORDERS = 'CHECKOUT_CANDY_ORDERS';
-const LOGOUT_CANDY_ORDERS = 'LOGOUT_CANDY_ORDERS'
+const LOGOUT_CANDY_ORDERS = 'LOGOUT_CANDY_ORDERS';
 
 // Action Creators
 export const _setCandyOrders = (candyOrders) => ({
@@ -38,8 +38,8 @@ export const _checkoutCandyOrders = () => ({
 
 export const _logoutCandyOrders = () => ({
   type: LOGOUT_CANDY_ORDERS,
-  payload: []
-})
+  payload: [],
+});
 
 // Thunk Creators
 export const setCandyOrders = (id) => async (dispatch) => {
@@ -120,12 +120,12 @@ export const checkoutCandyOrders = () => async (dispatch) => {
 export const logoutCandyOrders = () => async (dispatch) => {
   try {
     if (token) {
-      dispatch(_logoutCandyOrders())
+      dispatch(_logoutCandyOrders());
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 // Reducer & Initial State
 const initialState = [];
@@ -148,7 +148,7 @@ export default function (candyOrders = initialState, action) {
     case CHECKOUT_CANDY_ORDERS:
       return action.payload;
     case LOGOUT_CANDY_ORDERS:
-      return action.payload
+      return action.payload;
     default:
       return candyOrders;
   }
