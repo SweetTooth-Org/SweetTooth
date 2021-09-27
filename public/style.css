@@ -45,6 +45,13 @@ IDs
   padding: 2%;
 }
 
+#order-item {
+  border: 2px solid #d8d8d8;
+  margin: 2%;
+  padding: 2%;
+}
+
+
 #quantity-slider {
   display: flex;
   flex-direction: row;
@@ -59,6 +66,15 @@ IDs
   align-items: flex-end;
 
   margin: 5%;
+}
+
+#order-total-checkout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  margin-right: 3.65%;
 }
 
 #all-candies-view {

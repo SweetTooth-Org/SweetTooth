@@ -50,6 +50,7 @@ router.put('/', requireToken, async (req, res, next) => {
         orderId: req.body.orderId,
       },
     });
+    console.log(req.body);
     const updatedOrder = await candyOrders.update(req.body);
     const [eagerLoadedUpdatedCandy] = await CandyOrders.findAll({
       include: [Candy],
