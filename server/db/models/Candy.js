@@ -17,21 +17,22 @@ const Candy = db.define('candy', {
   },
 });
 
-// Candy.afterUpdate(async function (candy) {
-//   const { name, price, imageUrl, description } = candy._previousDataValues;
-//   if (candy.dataValues.name === '') {
-//     candy.dataValues.name = name;
-//   }
-//   if (candy.dataValues.price === '') {
-//     candy.dataValues.price = price;
-//   }
-//   if (candy.dataValues.imageUrl === '') {
-//     candy.dataValues.imageUrl = imageUrl;
-//   }
-// if (candy.dataValues.description === '') {
-//   candy.dataValues.description = description;
-// }
-// });
+Candy.beforeUpdate(async function (candy) {
+  const { name, price, imageUrl, description } = candy._previousDataValues;
+
+  if (candy.dataValues.name === '') {
+    candy.dataValues.name = name;
+  }
+  if (candy.dataValues.price === '') {
+    candy.dataValues.price = price;
+  }
+  if (candy.dataValues.imageUrl === '') {
+    candy.dataValues.imageUrl = imageUrl;
+  }
+  if (candy.dataValues.description === '') {
+    candy.dataValues.description = description;
+  }
+});
 
 Candy.beforeCreate(async function (candy) {
   const description = candy.dataValues.description;
