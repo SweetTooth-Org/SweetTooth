@@ -27,6 +27,7 @@ export class SingleCandy extends Component {
     candyOrder.candyId = candy.id;
     candyOrder.price = candy.price;
     candyOrder.quantity = 1;
+    candyOrder.candy = candy;
 
     // Parsing or creating the array from local storage
     const cartHistory =
