@@ -47,7 +47,7 @@ export const _logoutCart = () => ({
 export const setCart = (id) => async (dispatch) => {
   try {
     if (token) {
-      const { data } = await axios.get(`/api/orders/${id}`, {
+      const { data } = await axios.get(`/api/orders/unfulfilled/${id}`, {
         headers: {
           authorization: token,
         },
