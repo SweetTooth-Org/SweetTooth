@@ -1,6 +1,8 @@
 const Order = require('../db/models/Order');
 const router = require('express').Router();
 const { requireToken } = require('./gateKeepingMiddleWare');
+const CandyOrders = require('../db/models/CandyOrders')
+const Candy = require('../db/models/Candy')
 
 // GET /api/orders/unfulfilled/:id
 router.get('/fulfilled/:id', requireToken, async (req, res, next) => {

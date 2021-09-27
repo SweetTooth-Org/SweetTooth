@@ -36,10 +36,10 @@ class Routes extends Component {
           </Switch>
         ) : isLoggedIn ? (
           <Switch>
+            <Route path="/orderslist" component={OrdersList} />
             <Route path="/candies/:candyId" component={SingleCandy} />
             <Route path="/checkout" component={Checkout} />
             <Route path="/confirmation" component={Confirmation} />
-            <Route path="orderslist" component={OrdersList} />
             <Route path="/home" component={Home} />
             <Redirect to="/home" />
           </Switch>

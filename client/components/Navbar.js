@@ -6,7 +6,7 @@ import { logoutCart } from '../store/cart';
 import { logoutCandyOrders } from '../store/candyOrders';
 import Cart from './Cart';
 import GuestCart from './GuestCart';
-import OrdersList from './OrdersList'
+import OrderHistoryButton from './OrderHistoryButton'
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
@@ -20,7 +20,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
             Logout
           </a>
           <Cart />
-          <OrdersList />
+          <OrderHistoryButton />
         </div>
       ) : (
         <div>
