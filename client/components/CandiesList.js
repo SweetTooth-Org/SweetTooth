@@ -73,7 +73,7 @@ class CandiesList extends React.Component {
         await this.props.updateCandyQuantity({
           ...preexistingCandyOrder,
           quantity: updatedQuantity,
-          price: Math.round(candy.price * updatedQuantity),
+          price: candy.price * updatedQuantity,
         });
       } else {
         //create new candyOrder
@@ -81,7 +81,7 @@ class CandiesList extends React.Component {
           orderId: this.props.cart.id,
           candyId: candy.id,
           quantity: 1,
-          price: Math.round(candy.price),
+          price: candy.price,
         });
       }
     } else {
@@ -90,7 +90,7 @@ class CandiesList extends React.Component {
         orderId: this.props.cart.id,
         candyId: candy.id,
         quantity: 1,
-        price: Math.round(candy.price),
+        price: candy.price,
       });
     }
   }
