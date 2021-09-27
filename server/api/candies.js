@@ -28,11 +28,10 @@ router.get('/:candyId', async (req, res, next) => {
 router.delete('/:candyId', requireToken, async (req, res, next) => {
   try {
     const candyId = req.params.candyId;
-    await Candy.findByPk(candyId).then(async (campus) => {
-      await campus.destroy();
+    await Candy.findByPk(candyId).then(async (candy) => {
+      await candy.destroy();
     });
-    const newCandyList = await Candy.findAll();
-    res.send(newCandyList);
+    res.status(200).send();
   } catch (error) {
     next(error);
   }
@@ -42,14 +41,14 @@ router.delete('/:candyId', requireToken, async (req, res, next) => {
 router.post('/', requireToken, async (req, res, next) => {
   try {
     const { name, price, imageUrl, description } = req.body;
-    await Candy.create({
+    const newCandy = await Candy.create({
       name,
       price,
       imageUrl,
       description,
     });
-    const newCandyList = await Candy.findAll();
-    res.send(newCandyList);
+
+    res.status(200).send(newCandy);
   } catch (error) {
     next(error);
   }
@@ -60,17 +59,12 @@ router.post('/', requireToken, async (req, res, next) => {
 router.put('/', requireToken, async (req, res, next) => {
   try {
     const { candyId, candyInfo } = req.body;
-    const candy = await Candy.findByPk(candyId);
-    if (candyInfo.imageUrl === '') {
-      //If the candy to be updated does not have an imageUrl, we'd like for a default image to take it's place. Must be a better way to do this...
-      candyInfo.imageUrl =
-        'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2FuZGllc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80';
-    }
-    await candy.update(candyInfo);
-    await candy.save();
-    const singleCandy = await candy.reload();
-    const newCandyList = await Candy.findAll();
-    res.send({ newCandyList, singleCandy });
+
+    const singleCandy = await Candy.findByPk(candyId).then(function (candy) {
+      return candy.update(candyInfo);
+    });
+
+    res.status(200).send(singleCandy);
   } catch (error) {
     next(error);
   }
