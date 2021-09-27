@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class GuestCheckout extends React.Component {
   constructor(props) {
@@ -142,13 +143,25 @@ class GuestCheckout extends React.Component {
         </div>
         <div id="total-checkout">
           <h2>Total: {(this.state.total / 100).toFixed(2)}</h2>
-          <Link to="/confirmation">
-            <button type="button">Checkout</button>
-          </Link>
+          {this.props.isLoggedIn ? (
+            <Link to="/confirmation">
+              <button type="button">Checkout</button>
+            </Link>
+          ) : (
+            <Link to="/guestSignup">
+              <button type="button">Checkout</button>
+            </Link>
+          )}
         </div>
       </React.Fragment>
     );
   }
 }
 
-export default GuestCheckout;
+const mapState = (state) => {
+  return {
+    isLoggedIn: !!state.auth.id,
+  };
+};
+
+export default connect(mapState, null)(GuestCheckout);
