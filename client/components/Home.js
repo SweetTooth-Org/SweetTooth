@@ -14,34 +14,6 @@ class Home extends React.Component {
     super(props);
   }
 
-  // mergeNewCart(guestCart) {
-  //   guestCart.map((order) => {
-  //     this.props.createCandyOrder({
-  //       orderId: this.props.cart.id,
-  //       candyId: order.candy.id,
-  //       quantity: order.quantity,
-  //       price: order.price,
-  //     });
-  //   });
-  // }
-
-  // mergeExistingCart(guestCart, candyOrders) {
-  //   for (const order of guestCart) {
-  //     const mergedOrder = {};
-  //     let doesExist = false;
-  //     for (let i = 0; i < candyOrders.length; i++) {
-  //       if (candyOrders[i].candyId === order.candyId) {
-  //         (mergedOrder.orderId = candyOrders[i].orderId),
-  //           (mergedOrder.candyId = order.candyId),
-  //           (mergedOrder.quantity = order.quantity + candyOrders[i].quantity),
-  //           (mergedOrder.price = order.price + candyOrders[i].price),
-
-  //         break;
-  //       }
-  //     }
-  //   }
-  // }
-
   async componentDidMount() {
     // Set userId & load tackerOrders (null if no cart)
     const userId = this.props.auth.id;
@@ -55,7 +27,14 @@ class Home extends React.Component {
 
       // Case: if there is a guest cart, user cart but no candyOrders
       if (trackedOrders !== null && this.props.candyOrders.length === 0) {
-        this.mergeNewCart(trackedOrders);
+        trackedOrders.map((order) => {
+          this.props.createCandyOrder({
+            orderId: this.props.cart.id,
+            candyId: order.candy.id,
+            quantity: order.quantity,
+            price: order.price,
+          });
+        });
         // Case: if there is a guest cart, user cart, and candyOrders
       } else if (trackedOrders !== null && this.props.candyOrders.length > 0) {
         const candyOrders = this.props.candyOrders;
