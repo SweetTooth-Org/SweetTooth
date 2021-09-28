@@ -22,7 +22,7 @@ class Home extends React.Component {
     // Attempt to load cart
     await this.props.loadCart(userId);
     // If cart exists attempt to load candyOrders of cart
-    if (this.props.cart.userId) {
+    if (this.props.cart.id) {
       await this.props.loadCandyOrders(this.props.cart.id);
 
       // Case: if there is a guest cart, user cart but no candyOrders
