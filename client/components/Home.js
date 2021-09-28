@@ -38,31 +38,32 @@ class Home extends React.Component {
         }
         // Case: if there is a guest cart, user cart, and candyOrders
       } else if (trackedOrders !== null && this.props.candyOrders.length > 0) {
+        const candyOrders = this.props.candyOrders;
         // Handle each order from the guest cart
         for (const order of trackedOrders) {
           let doesExist = false;
           // Run through existing order. If item exists update with total qty & length, else update the items orderId
-          const updatedOrder = this.props.candyOrders.reduce((accum, value) => {
-            if (value.candyId === order.candyId) {
-              (accum.orderId = value.orderId),
-                (accum.candyId = order.candyId),
-                (accum.quantity = value.quantity + order.quantity),
-                (accum.price = value.price + order.price);
+          const updatedOrder = {};
+          // Check if the order matches any of the orders from candyOrders
+          for (let i = 0; i < candyOrders.length; i++) {
+            // If it exists, store updated candyOrder in updatedOrder
+            if (candyOrders[i].candyId === order.candyId) {
+              (updatedOrder.orderId = candyOrders[i].orderId),
+                (updatedOrder.candyId = order.candyId),
+                (updatedOrder.quantity =
+                  candyOrders[i].quantity + order.quantity),
+                (updatedOrder.price = candyOrders[i].price + order.price);
 
               doesExist = true;
-
-              return accum;
+              break;
+              // Else create a new candy order object
             } else {
-              (accum.orderId = value.orderId),
-                (accum.candyId = order.candyId),
-                (accum.quantity = order.quantity),
-                (accum.price = order.price);
-
-              return accum;
+              (updatedOrder.orderId = candyOrders[i].orderId),
+                (updatedOrder.candyId = order.candyId),
+                (updatedOrder.quantity = order.quantity),
+                (updatedOrder.price = order.price);
             }
-          }, {});
-
-          console.log('UPDATE:::', updatedOrder);
+          }
           // Updating the candyOrder or adding it if it doesn't exist
           doesExist
             ? await this.props.updateCandyOrder(updatedOrder)
@@ -87,7 +88,6 @@ class Home extends React.Component {
     }
     localStorage.removeItem('tracked-orders');
   }
-  4;
 
   render() {
     return (

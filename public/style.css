@@ -4,6 +4,13 @@ body {
 
 a {
   text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+  color: gray;
+  opacity: 80%;
 }
 
 label {
@@ -99,9 +106,10 @@ IDs
 /*********
 Classes
 *********/
-/*********
-Rohan-my CSS needs alot of work
-*********/
+.active {
+  color: black;
+  font-weight: bolder;
+}
 .main-container {
   display: flex;
   flex-direction: column;
@@ -231,6 +239,29 @@ Rohan-my CSS needs alot of work
   border: double;
   justify-self: center;
 }
+
+.nav-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.add-to-cart-btn {
+  background: #3cb0fd;
+  color: white;
+  border: 3px solid #3cb0fd;
+  padding: 2%;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 28px;
+}
+
+.add-to-cart-btn:hover {
+  background: white;
+  color: #3498db;
+  border: 2px solid #3498db;
+}
+
 textarea {
   display: flex;
   padding: 12px 20px;
