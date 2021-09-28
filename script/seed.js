@@ -12,7 +12,7 @@ function genRandomPrice(min, max) {
   return num.toFixed(0);
 }
 //Candies data
-const candiesData = require('../server/db/seedData');
+const { candiesData } = require('../server/db/seedData');
 
 //Generate candy objs to use for seeding candy table
 const candyObjs = candiesData.map(function (candy) {
