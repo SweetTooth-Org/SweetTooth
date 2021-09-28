@@ -148,7 +148,7 @@ class GuestCheckout extends React.Component {
               <button type="button">Checkout</button>
             </Link>
           ) : (
-            <Link to="/guestSignup">
+            <Link to="/login">
               <button type="button">Checkout</button>
             </Link>
           )}

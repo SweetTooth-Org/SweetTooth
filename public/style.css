@@ -51,7 +51,6 @@ IDs
   padding: 2%;
 }
 
-
 #quantity-slider {
   display: flex;
   flex-direction: row;
@@ -240,4 +239,14 @@ textarea {
   border-radius: 4px;
   box-sizing: border-box;
   resize: none;
+}
+
+.are-you-guest {
+  position: relative;
+  width: 375px;
+  text-align: center;
+  left: 15px;
+  font-weight: bold;
+  background-color: rgb(202, 15, 15);
+  color: white;
 }
