@@ -9,18 +9,20 @@ import GuestCart from './GuestCart';
 import OrderHistoryButton from './OrderHistoryButton';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
-  <div>
-    <h1>SweetTooth</h1>
+  <div id="nav">
     <nav>
       {isLoggedIn ? (
         <div className="nav-container">
           <div>
-            <NavLink to="/home">Home</NavLink>
+            <NavLink to="/home" className="store-title">
+              SweetTooth
+            </NavLink>
             <a href="#" onClick={handleClick}>
               Logout
             </a>
           </div>
           <div>
+            <NavLink to="/home" className="store-title"></NavLink>
             <OrderHistoryButton />
             <Cart />
           </div>
@@ -28,7 +30,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
       ) : (
         <div className="nav-container">
           <div>
-            <NavLink to="/login">Home</NavLink>
+            <NavLink to="/login" className="store-title">
+              SweetTooth
+            </NavLink>
             <NavLink to="/signup">Sign Up</NavLink>
           </div>
           <GuestCart />

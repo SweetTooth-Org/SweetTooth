@@ -112,7 +112,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <h3>Welcome, {this.props.auth.username}</h3>
+        <h3 id="welcome-user">Welcome, {this.props.auth.username}</h3>
         <CandiesList />
       </div>
     );
