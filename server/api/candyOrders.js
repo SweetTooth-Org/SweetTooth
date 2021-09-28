@@ -50,8 +50,12 @@ router.put('/', requireToken, async (req, res, next) => {
         orderId: req.body.orderId,
       },
     });
-    console.log(req.body);
-    const updatedOrder = await candyOrders.update(req.body);
+    let quantity = req.body.quantity
+    let price = req.body.price
+    const updatedOrder = await candyOrders.update({
+      price,
+      quantity
+    });
     const [eagerLoadedUpdatedCandy] = await CandyOrders.findAll({
       include: [Candy],
       where: {
@@ -65,7 +69,7 @@ router.put('/', requireToken, async (req, res, next) => {
   }
 });
 
-router.delete('/:orderId/:candyId', requireToken, async (req, res, next) => {
+router.delete('/:orderId/candy/:candyId', requireToken, async (req, res, next) => {
   try {
     const { candyId, orderId } = req.params;
     const [itemToDelete] = await CandyOrders.findAll({

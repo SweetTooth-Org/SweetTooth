@@ -4,7 +4,7 @@ const { requireToken } = require('./gateKeepingMiddleWare');
 const CandyOrders = require('../db/models/CandyOrders')
 const Candy = require('../db/models/Candy')
 
-// GET /api/orders/unfulfilled/:id
+// GET /api/orders/fulfilled/:id
 router.get('/fulfilled/:id', requireToken, async (req, res, next) => {
   try {
     const orders = await Order.findAll({

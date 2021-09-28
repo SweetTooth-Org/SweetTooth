@@ -80,7 +80,7 @@ export const deleteCandyOrder = (candyOrder) => async (dispatch) => {
     // dispatch(_deleteCandyOrder(data));
     if (token) {
       const { data } = await axios.delete(
-        `/api/candyOrders/${candyOrder.orderId}/${candyOrder.candyId}`,
+        `/api/candyOrders/${candyOrder.orderId}/candy/${candyOrder.candyId}`,
         {
           headers: {
             authorization: token,
