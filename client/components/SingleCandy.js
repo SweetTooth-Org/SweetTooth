@@ -35,6 +35,18 @@ export class SingleCandy extends Component {
       draggable: false,
       progress: undefined,
     });
+
+    if (!this.props.isLoggedIn) {
+      toast.warn('LOGIN OR SIGNUP TO CHECKOUT', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+      });
+    }
   }
 
   handleGuestCart(candy) {
