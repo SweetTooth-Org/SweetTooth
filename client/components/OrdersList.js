@@ -1,34 +1,35 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { setOrders } from '../store/orders'
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { setOrders } from '../store/orders';
 
 class OrdersList extends React.Component {
   constructor(props) {
-    super(props)
-
+    super(props);
   }
 
   componentDidMount() {
-    this.props.loadOrders(this.props.userId)
+    this.props.loadOrders(this.props.userId);
   }
 
   render() {
-    const orders = this.props.orders
-    let orderCount = 0
+    const orders = this.props.orders;
+    let orderCount = 0;
     return (
       <React.Fragment>
         <h2>Order History</h2>
         <div>
           {orders.map((order) => {
-            let total = 0
-            orderCount++
+            let total = 0;
+            orderCount++;
             return (
               <div id="order-item" key={order.id}>
-                <h3>Order {order.id}</h3>
+                <h3>{`Order Number: ${order.orderNumber}`}</h3>
                 {order.candyorders.map((candyOrder) => {
                   total += candyOrder.price * candyOrder.quantity;
-                  candyOrder.candy = order.candies.filter((candy) => candy.id === candyOrder.candyId)[0]
+                  candyOrder.candy = order.candies.filter(
+                    (candy) => candy.id === candyOrder.candyId
+                  )[0];
                   return (
                     <div
                       id="checkout-item"
@@ -57,27 +58,25 @@ class OrdersList extends React.Component {
                   <h3>Order Total: {(total / 100).toFixed(2)}</h3>
                 </div>
               </div>
-              )
+            );
           })}
         </div>
       </React.Fragment>
-
-    )
+    );
   }
-
 }
 
 const mapState = (state) => {
   return {
     userId: state.auth.id,
-    orders: state.orders
-  }
-}
+    orders: state.orders,
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
-    loadOrders: (id) => dispatch(setOrders(id))
-  }
-}
+    loadOrders: (id) => dispatch(setOrders(id)),
+  };
+};
 
-export default connect(mapState, mapDispatch)(OrdersList)
+export default connect(mapState, mapDispatch)(OrdersList);

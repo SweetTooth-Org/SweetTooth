@@ -12,6 +12,9 @@ class CandiesList extends React.Component {
   constructor(props) {
     super(props);
     this.handleCreateCart = this.handleCreateCart.bind(this);
+    this.state = {
+      areYouGuest: false,
+    };
   }
 
   componentDidMount() {
@@ -68,6 +71,9 @@ class CandiesList extends React.Component {
     }
 
     localStorage.setItem('tracked-orders', JSON.stringify(cartHistory));
+    this.setState({
+      areYouGuest: true,
+    });
   }
 
   async handleCreateCart(candy, userId) {
@@ -112,10 +118,22 @@ class CandiesList extends React.Component {
   }
 
   render() {
+    let areYouGuest;
+    const trackedOrders = JSON.parse(localStorage.getItem('tracked-orders'));
+
     const candies = this.props.candies;
     const userId = this.props.userId;
+
+    if (trackedOrders)
+      areYouGuest = (
+        <div className="are-you-guest">PLEASE LOGIN OR SIGN UP TO CHECKOUT</div>
+      );
+
+    if (this.props.isLoggedIn) areYouGuest = <React.Fragment></React.Fragment>;
+
     return (
       <React.Fragment>
+        {areYouGuest}
         <h2>Shop All Candies</h2>
         <div id="all-candies-view">
           {candies.map((candy) => {
