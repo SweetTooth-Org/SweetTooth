@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { authenticate } from '../store';
 import CandiesList from './CandiesList';
@@ -6,48 +6,58 @@ import CandiesList from './CandiesList';
 /**
  * COMPONENT
  */
-const AuthForm = (props) => {
-  const { name, displayName, handleSubmit, error } = props;
-  let email;
-  if (displayName === 'Sign Up') {
-    email = (
-      <div>
-        <label htmlFor="email">
-          <small>Email</small>
-        </label>
-        <input name="email" type="text" />
-      </div>
-    );
-  } else {
-    email = <React.Fragment></React.Fragment>;
+class AuthForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      areYouGuest: false,
+    };
   }
-  return (
-    <React.Fragment>
-      <div>
-        <form onSubmit={handleSubmit} name={name}>
-          <div>
-            <label htmlFor="username">
-              <small>Username</small>
-            </label>
-            <input name="username" type="text" />
-          </div>
-          <div>
-            <label htmlFor="password">
-              <small>Password</small>
-            </label>
-            <input name="password" type="password" />
-          </div>
-          {email}
-          <div>
-            <button type="submit">{displayName}</button>
-          </div>
-          {error && error.response && <div> {error.response.data} </div>}
-        </form>
-      </div>
-      <CandiesList />
-    </React.Fragment>
-  );
-};
+
+  render() {
+    const { name, displayName, handleSubmit, error } = this.props;
+    let email;
+    if (displayName === 'Sign Up') {
+      email = (
+        <div>
+          <label htmlFor="email">
+            <small>Email</small>
+          </label>
+          <input name="email" type="text" />
+        </div>
+      );
+    } else {
+      email = <React.Fragment></React.Fragment>;
+    }
+
+    return (
+      <React.Fragment>
+        <div>
+          <form onSubmit={handleSubmit} name={name}>
+            <div>
+              <label htmlFor="username">
+                <small>Username</small>
+              </label>
+              <input name="username" type="text" />
+            </div>
+            <div>
+              <label htmlFor="password">
+                <small>Password</small>
+              </label>
+              <input name="password" type="password" />
+            </div>
+            {email}
+            <div>
+              <button type="submit">{displayName}</button>
+            </div>
+            {error && error.response && <div> {error.response.data} </div>}
+          </form>
+        </div>
+        <CandiesList />
+      </React.Fragment>
+    );
+  }
+}
 
 /**
  * CONTAINER

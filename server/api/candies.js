@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { requireToken } = require('./gateKeepingMiddleWare');
+const { requireToken, isAdmin } = require('./gateKeepingMiddleWare');
 const {
   models: { Candy },
 } = require('../db');
@@ -25,7 +25,7 @@ router.get('/:candyId', async (req, res, next) => {
 
 //Now protected by requireToken
 //Token is sent from client, varified, then proceed...
-router.delete('/:candyId', requireToken, async (req, res, next) => {
+router.delete('/:candyId', requireToken, isAdmin, async (req, res, next) => {
   try {
     const candyId = req.params.candyId;
     await Candy.findByPk(candyId).then(async (candy) => {
@@ -38,7 +38,7 @@ router.delete('/:candyId', requireToken, async (req, res, next) => {
 });
 
 //Now protected by requireToken
-router.post('/', requireToken, async (req, res, next) => {
+router.post('/', requireToken, isAdmin, async (req, res, next) => {
   try {
     const { name, price, imageUrl, description } = req.body;
     const newCandy = await Candy.create({
@@ -56,7 +56,7 @@ router.post('/', requireToken, async (req, res, next) => {
 
 //Now protected by requireToken
 //To many database calls!
-router.put('/', requireToken, async (req, res, next) => {
+router.put('/', requireToken, isAdmin, async (req, res, next) => {
   try {
     const { candyId, candyInfo } = req.body;
 
