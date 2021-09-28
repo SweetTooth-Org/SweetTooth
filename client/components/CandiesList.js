@@ -140,7 +140,7 @@ class CandiesList extends React.Component {
             return (
               <div id="candy-item" key={candy.id}>
                 <Link to={`/candies/${candy.id}`}>
-                  <h4>{candy.name}</h4>
+                  <h4 className="candy-name">{candy.name}</h4>
                   <img id="all-candy-img" src={candy.imageUrl} />
                   <h4>{(candy.price / 100).toFixed(2)}</h4>
                 </Link>

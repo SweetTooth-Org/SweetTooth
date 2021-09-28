@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: #f4f3ee;
 }
 
 a {
@@ -9,8 +10,8 @@ a {
 
 a:hover {
   text-decoration: none;
-  color: gray;
-  opacity: 80%;
+  color: black;
+  font-weight: bold;
 }
 
 label {
@@ -20,6 +21,9 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
+}
+form {
+  padding: 0 2%;
 }
 
 form div {
@@ -34,6 +38,16 @@ h2 {
 /*********
 IDs
 *********/
+#welcome-user {
+  margin: 1% 2%;
+}
+
+#confirmation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
 
 #checkout-container {
   display: flex;
@@ -95,7 +109,7 @@ IDs
   flex-direction: column;
   justify-content: center;
 
-  margin: 3%;
+  margin: 2%;
 }
 
 #all-candy-img {
@@ -106,6 +120,11 @@ IDs
 /*********
 Classes
 *********/
+.store-title {
+  font-family: ribeye;
+  font-size: 25px;
+}
+
 .active {
   color: black;
   font-weight: bolder;
@@ -246,10 +265,24 @@ Classes
   justify-content: space-between;
 }
 
+.nav-container > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-container > a {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .add-to-cart-btn {
-  background: #3cb0fd;
+  background: #da5f06;
   color: white;
-  border: 3px solid #3cb0fd;
+  border: 3px solid #da5f06;
   padding: 2%;
   font-size: 15px;
   font-weight: bold;
@@ -258,8 +291,12 @@ Classes
 
 .add-to-cart-btn:hover {
   background: white;
-  color: #3498db;
-  border: 2px solid #3498db;
+  color: #da5f06;
+  border: 2px solid #da5f06;
+}
+
+.candy-name {
+  text-align: center;
 }
 
 textarea {
