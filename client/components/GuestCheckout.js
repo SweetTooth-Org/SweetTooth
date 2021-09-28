@@ -97,63 +97,73 @@ class GuestCheckout extends React.Component {
     const candyOrders = this.state.candyOrders;
 
     return (
-      <React.Fragment>
-        <h2>Checkout</h2>
-        <div id="guest-checkout-container">
-          {candyOrders.map((candyOrder) => {
-            return (
-              <div
-                id="checkout-item"
-                key={`${candyOrder.candyId} ${candyOrder.orderId}`}
-              >
-                <img id="all-candy-img" src={candyOrder.candy.imageUrl} />
-                <h4>{candyOrder.candy.name}</h4>
-                <div>
-                  <h4>Quantity: </h4>
-                  <div id="quantity-slider">
+      <div>
+        {candyOrders.length > 0 ? (
+          <React.Fragment>
+            <h2>Checkout</h2>
+            <div id="guest-checkout-container">
+              {candyOrders.map((candyOrder) => {
+                return (
+                  <div
+                    id="checkout-item"
+                    key={`${candyOrder.candyId} ${candyOrder.orderId}`}
+                  >
+                    <img id="all-candy-img" src={candyOrder.candy.imageUrl} />
+                    <h4>{candyOrder.candy.name}</h4>
+                    <div>
+                      <h4>Quantity: </h4>
+                      <div id="quantity-slider">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            this.handleChangeQty(candyOrder, 'subtract')
+                          }
+                        >
+                          -
+                        </button>
+                        <h4>{candyOrder.quantity}</h4>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            this.handleChangeQty(candyOrder, 'add')
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <h4>$ {(candyOrder.candy.price / 100).toFixed(2)}</h4>
+                    <h4>
+                      Total Price: $ {(candyOrder.price / 100).toFixed(2)}
+                    </h4>
                     <button
+                      id="delete-item"
                       type="button"
-                      onClick={() =>
-                        this.handleChangeQty(candyOrder, 'subtract')
-                      }
+                      onClick={() => this.handleDelete(candyOrder)}
                     >
-                      -
-                    </button>
-                    <h4>{candyOrder.quantity}</h4>
-                    <button
-                      type="button"
-                      onClick={() => this.handleChangeQty(candyOrder, 'add')}
-                    >
-                      +
+                      Remove
                     </button>
                   </div>
-                </div>
-                <h4>$ {(candyOrder.candy.price / 100).toFixed(2)}</h4>
-                <h4>Total Price: $ {(candyOrder.price / 100).toFixed(2)}</h4>
-                <button
-                  id="delete-item"
-                  type="button"
-                  onClick={() => this.handleDelete(candyOrder)}
-                >
-                  Remove
-                </button>
-              </div>
-            );
-          })}
-        </div>
-        <div id="total-checkout">
-          <h2>Total: {(this.state.total / 100).toFixed(2)}</h2>
-          {this.props.isLoggedIn ? (
-            <Link to="/confirmation">
-              <button type="button">Checkout</button>
-            </Link>
-          ) : (
-            <Link to="/guestSignup">
-              <button type="button">Checkout</button>
-            </Link>
-          )}
-        </div>
-      </React.Fragment>
+                );
+              })}
+            </div>
+            <div id="total-checkout">
+              <h2>Total: {(this.state.total / 100).toFixed(2)}</h2>
+              {this.props.isLoggedIn ? (
+                <Link to="/confirmation">
+                  <button type="button">Checkout</button>
+                </Link>
+              ) : (
+                <Link to="/guestSignup">
+                  <button type="button">Checkout</button>
+                </Link>
+              )}
+            </div>
+          </React.Fragment>
+        ) : (
+          <h2>No items in Cart</h2>
+        )}
+      </div>
     );
   }
 }
