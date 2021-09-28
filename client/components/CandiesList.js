@@ -5,6 +5,8 @@ import { createCart } from '../store/cart';
 import { Link } from 'react-router-dom';
 import { createCandyOrder } from '../store/candyOrders';
 import { updateCandyQuantity } from '../store/candyOrders';
+import { ToastContainer, toast } from 'react-toastify';
+import { injectStyle } from 'react-toastify/dist/inject-style';
 
 class CandiesList extends React.Component {
   constructor(props) {
@@ -17,12 +19,26 @@ class CandiesList extends React.Component {
 
   componentDidMount() {
     this.props.loadCandies();
+
+    if (typeof window !== 'undefined') {
+      injectStyle();
+    }
   }
 
   handleCart(candy, userId) {
     this.props.isLoggedIn
       ? this.handleCreateCart(candy, userId)
       : this.handleGuestCart(candy);
+
+    toast(`Added ${candy.name} to cart.`, {
+      position: 'top-center',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: false,
+      progress: undefined,
+    });
   }
 
   handleGuestCart(candy) {
@@ -114,6 +130,7 @@ class CandiesList extends React.Component {
       );
 
     if (this.props.isLoggedIn) areYouGuest = <React.Fragment></React.Fragment>;
+
     return (
       <React.Fragment>
         {areYouGuest}
@@ -138,6 +155,7 @@ class CandiesList extends React.Component {
             );
           })}
         </div>
+        <ToastContainer />
       </React.Fragment>
     );
   }

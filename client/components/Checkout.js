@@ -42,71 +42,78 @@ class Checkout extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     const candyOrders = this.props.candyOrders;
 
     let total = 0;
     return (
-      <React.Fragment>
-        <h2>Checkout</h2>
-        <div id="checkout-container">
-          {candyOrders.map((candyOrder) => {
-            total += candyOrder.price * candyOrder.quantity;
-            return (
-              <div
-                id="checkout-item"
-                key={`${candyOrder.candyId} ${candyOrder.orderId}`}
-              >
-                <img id="all-candy-img" src={candyOrder.candy.imageUrl} />
-                <h4>{candyOrder.candy.name}</h4>
-                <div>
-                  <h4>Quantity: </h4>
-                  <div id="quantity-slider">
+      <div>
+        {candyOrders.length > 0 ? (
+          <React.Fragment>
+            <h2>Checkout</h2>
+            <div id="checkout-container">
+              {candyOrders.map((candyOrder) => {
+                total += candyOrder.price * candyOrder.quantity;
+                return (
+                  <div
+                    id="checkout-item"
+                    key={`${candyOrder.candyId} ${candyOrder.orderId}`}
+                  >
+                    <img id="all-candy-img" src={candyOrder.candy.imageUrl} />
+                    <h4>{candyOrder.candy.name}</h4>
+                    <div>
+                      <h4>Quantity: </h4>
+                      <div id="quantity-slider">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            this.handleChangeQty(candyOrder, 'subtract')
+                          }
+                        >
+                          -
+                        </button>
+                        <h4>{candyOrder.quantity}</h4>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            this.handleChangeQty(candyOrder, 'add')
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <h4>$ {(candyOrder.candy.price / 100).toFixed(2)}</h4>
+                    <h4>
+                      Total Price: ${' '}
+                      {(
+                        (candyOrder.candy.price * candyOrder.quantity) /
+                        100
+                      ).toFixed(2)}
+                    </h4>
                     <button
+                      id="delete-item"
                       type="button"
-                      onClick={() =>
-                        this.handleChangeQty(candyOrder, 'subtract')
-                      }
+                      onClick={() => this.handleDelete(candyOrder)}
                     >
-                      -
-                    </button>
-                    <h4>{candyOrder.quantity}</h4>
-                    <button
-                      type="button"
-                      onClick={() => this.handleChangeQty(candyOrder, 'add')}
-                    >
-                      +
+                      Remove
                     </button>
                   </div>
-                </div>
-                <h4>$ {(candyOrder.candy.price / 100).toFixed(2)}</h4>
-                <h4>
-                  Total Price: ${' '}
-                  {(
-                    (candyOrder.candy.price * candyOrder.quantity) /
-                    100
-                  ).toFixed(2)}
-                </h4>
-                <button
-                  id="delete-item"
-                  type="button"
-                  onClick={() => this.handleDelete(candyOrder)}
-                >
-                  Remove
+                );
+              })}
+            </div>
+            <div id="total-checkout">
+              <h2>Total: {(total / 100).toFixed(2)}</h2>
+              <Link to="/confirmation">
+                <button type="button" onClick={() => this.handleCheckout()}>
+                  Checkout
                 </button>
-              </div>
-            );
-          })}
-        </div>
-        <div id="total-checkout">
-          <h2>Total: {(total / 100).toFixed(2)}</h2>
-          <Link to="/confirmation">
-            <button type="button" onClick={() => this.handleCheckout()}>
-              Checkout
-            </button>
-          </Link>
-        </div>
-      </React.Fragment>
+              </Link>
+            </div>
+          </React.Fragment>
+        ) : (
+          <h2>No items in Cart</h2>
+        )}
+      </div>
     );
   }
 }

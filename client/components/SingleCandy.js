@@ -4,6 +4,8 @@ import { fetchSingleCandy } from '../store/singleCandy';
 import { createCart } from '../store/cart';
 import { createCandyOrder } from '../store/candyOrders';
 import { updateCandyQuantity } from '../store/candyOrders';
+import { ToastContainer, toast } from 'react-toastify';
+import { injectStyle } from 'react-toastify/dist/inject-style';
 
 export class SingleCandy extends Component {
   constructor(props) {
@@ -13,12 +15,26 @@ export class SingleCandy extends Component {
 
   componentDidMount() {
     this.props.loadSingleCandy(this.props.match.params.candyId);
+
+    if (typeof window !== 'undefined') {
+      injectStyle();
+    }
   }
 
   handleCart(singleCandy, userId) {
     this.props.isLoggedIn
       ? this.handleAddToCart(singleCandy, userId)
       : this.handleGuestCart(singleCandy);
+
+    toast(`Added ${singleCandy.name} to cart.`, {
+      position: 'top-center',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: false,
+      progress: undefined,
+    });
   }
 
   handleGuestCart(candy) {
@@ -127,6 +143,7 @@ export class SingleCandy extends Component {
               </div>
             </div>
           </div>
+          <ToastContainer />
         </React.Fragment>
       </div>
     );
