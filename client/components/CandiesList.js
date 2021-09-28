@@ -36,8 +36,9 @@ class CandiesList extends React.Component {
       draggable: false,
       progress: undefined,
     });
+
     if (!this.props.isLoggedIn) {
-      toast('LOGIN OR SIGNUP TO CHECKOUT', {
+      toast.warn('LOGIN OR SIGNUP TO CHECKOUT', {
         position: 'top-center',
         autoClose: 3000,
         hideProgressBar: false,
