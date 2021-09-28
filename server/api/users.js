@@ -8,7 +8,7 @@ module.exports = router;
 router.get('/', requireToken, async (req, res, next) => {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'username'],
+      attributes: ['id', 'username', 'email', 'isAdmin'],
     });
     res.json(users);
   } catch (err) {

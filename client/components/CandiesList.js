@@ -12,9 +12,6 @@ class CandiesList extends React.Component {
   constructor(props) {
     super(props);
     this.handleCreateCart = this.handleCreateCart.bind(this);
-    this.state = {
-      areYouGuest: false,
-    };
   }
 
   componentDidMount() {
@@ -39,6 +36,17 @@ class CandiesList extends React.Component {
       draggable: false,
       progress: undefined,
     });
+    if (!this.props.isLoggedIn) {
+      toast('LOGIN OR SIGNUP TO CHECKOUT', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+      });
+    }
   }
 
   handleGuestCart(candy) {
@@ -118,22 +126,11 @@ class CandiesList extends React.Component {
   }
 
   render() {
-    let areYouGuest;
-    const trackedOrders = JSON.parse(localStorage.getItem('tracked-orders'));
-
     const candies = this.props.candies;
     const userId = this.props.userId;
 
-    if (trackedOrders)
-      areYouGuest = (
-        <div className="are-you-guest">PLEASE LOGIN OR SIGN UP TO CHECKOUT</div>
-      );
-
-    if (this.props.isLoggedIn) areYouGuest = <React.Fragment></React.Fragment>;
-
     return (
       <React.Fragment>
-        {areYouGuest}
         <h2>Shop All Candies</h2>
         <div id="all-candies-view">
           {candies.map((candy) => {
