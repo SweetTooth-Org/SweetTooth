@@ -184,7 +184,7 @@ Classes
 
 .admin-user-div {
   border: double;
-  height: 50px;
+  height: 70px;
 }
 
 .admin-header {
@@ -307,14 +307,4 @@ textarea {
   border-radius: 4px;
   box-sizing: border-box;
   resize: none;
-}
-
-.are-you-guest {
-  position: relative;
-  width: 375px;
-  text-align: center;
-  left: 15px;
-  font-weight: bold;
-  background-color: rgb(202, 15, 15);
-  color: white;
 }
