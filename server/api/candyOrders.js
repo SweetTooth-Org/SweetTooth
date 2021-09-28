@@ -69,7 +69,7 @@ router.put('/', requireToken, async (req, res, next) => {
   }
 });
 
-router.delete('/:orderId/:candyId', requireToken, async (req, res, next) => {
+router.delete('/:orderId/candy/:candyId', requireToken, async (req, res, next) => {
   try {
     const { candyId, orderId } = req.params;
     const [itemToDelete] = await CandyOrders.findAll({
